@@ -1,1 +1,1 @@
-# Repository for creating system based on asynchronous architecture
+# Asynchronous architecture system

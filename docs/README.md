@@ -86,7 +86,7 @@
 [паттерн](https://martinfowler.com/bliki/CircuitBreaker.html) `CircuitBreaker`.
 Для решения проблем возникающих при межсервисном взаимодействии необходимо логировать все важные запросы, а также
 необходимо внедрить хотя бы базовый
-[distributed tracing](https://microservices.io/patterns/observability/distributed-tracing.html).
+[distributed tracing](https://microservices.io/patterns/observability/distributed-tracing.html).  
 Пока что одной из основных проблем видится аутентификация. При выбраной схеме аутентификации необходимо гарантировать,
 что после аутентификации на сервисе `auth` пользователь сможет сразу продолжить работу над нужными ему ресурсами.
 Одним из вариантов решения этой проблемы будет синхронное обновление локального хранилища сессий пользователя для

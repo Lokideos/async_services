@@ -34,7 +34,8 @@
 #### Коммуникации
 
 - Сервис `tasks` будет продьюсить эвенты `TaskCreated`, `TaskClosed`
-- Сервис `tasks` будет Консьюмить эвенты `TaskPriceSet`, `UserLoggedIn`, `UserLoggedOut`, `UserRoleChanged`
+- Сервис `tasks` будет Консьюмить эвенты `TaskPriceSet`, `UserLoggedIn`, `UserLoggedOut`, `UserRoleChanged`,
+`UserCreated`
 - Сервис `tasks` будет перенаправлять пользователя на страницу авторизации сервиса `auth`
 
 ### auth
@@ -52,7 +53,7 @@
 
 #### Коммуникации
 
-- Сервис `auth` будет продьюсить эвенты `UserLoggedIn`, `UserLoggedOut`, `UserRoleChanged`
+- Сервис `auth` будет продьюсить эвенты `UserLoggedIn`, `UserLoggedOut`, `UserRoleChanged`, `UserCreated`
 - Сервис `auth` будет перенаправлять пользователя на страницу, с которой он пришел после успешной авторизации
 
 ### accounting
@@ -75,9 +76,9 @@
 
 #### Коммуникации
 
-- Сервис `accounting` будет продьюсить эвенты `TaskPriceSet`, `UserLoggedOut`, `UserRoleChanged`, `DayClosed`
+- Сервис `accounting` будет продьюсить эвенты `TaskPriceSet`, `DayClosed`
 - Сервис `accounting` будет Консьюмить эвенты `TaskCreated`, `TaskClosed`, `UserLoggedIn`, `UserLoggedOut`,
-`UserRoleChanged`
+`UserRoleChanged`, `UserCreated`
 - Сервис `accounting` будет перенаправлять пользователя на страницу авторизации сервиса `auth`
 
 ### analytics
@@ -99,7 +100,7 @@
 #### Коммуникации
 
 - Сервис `analytics` будет Консьюмить эвенты `TaskCreated`, `TaskPriceSet`, `TaskClosed`, `UserLoggedIn`,
-`UserLoggedOut`, `UserRoleChanged`
+`UserLoggedOut`, `UserRoleChanged`, `UserCreated`
 - Сервис `analytics` будет перенаправлять пользователя на страницу авторизации сервиса `auth`
 
 ## Concerns

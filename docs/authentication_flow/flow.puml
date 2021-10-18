@@ -1,0 +1,18 @@
+@startuml Auth1
+actor User
+
+User -> Service: Accessing resource
+Service -> Service: Checking JWT token in cookies
+alt success - user token is present in local session store
+  Service -> User: Send needed resource
+else failure - user token is not present in local session store
+  Service -> "Auth Service": Redirect user for authentication
+  "Auth Service" -> "Auth Service": Authenticate user; set JWT token to cookies
+  "Auth Service" -> Service: Syncronize correct JWT token via distributed commit log
+  note right
+    We might want to update the session store synchronously for the service
+    from which the authentication request originates
+  end note
+  Service -> User: Send needed resource
+end
+@enduml

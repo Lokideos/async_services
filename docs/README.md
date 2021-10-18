@@ -78,6 +78,7 @@
 - Сервис `accounting` будет продьюсить эвенты `TaskPriceSet`, `UserLoggedOut`, `UserRoleChanged`, `DayClosed`
 - Сервис `accounting` будет Консьюмить эвенты `TaskCreated`, `TaskClosed`, `UserLoggedIn`, `UserLoggedOut`,
 `UserRoleChanged`
+- Сервис `accounting` будет перенаправлять пользователя на страницу авторизации сервиса `auth`
 
 ### analytics
 
@@ -99,6 +100,7 @@
 
 - Сервис `analytics` будет Консьюмить эвенты `TaskCreated`, `TaskPriceSet`, `TaskClosed`, `UserLoggedIn`,
 `UserLoggedOut`, `UserRoleChanged`
+- Сервис `analytics` будет перенаправлять пользователя на страницу авторизации сервиса `auth`
 
 ## Concerns
 

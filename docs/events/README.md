@@ -26,12 +26,6 @@ Producer: Accounting
 
 Consumers: Analytics
 
-### AssignedTaskCostAccounted
-
-Producer: Accounting
-
-Consumers: Analytics
-
 ### TaskCompleted
 
 Producer: Tasks

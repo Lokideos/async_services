@@ -16,7 +16,7 @@ This will be a Read Model.
 Actor - User \
 Command - Authenticate User \
 Data - Account + Account public id \
-Event - UserAuthenticated
+Event - User.Authenticated
 
 ---
 
@@ -26,7 +26,7 @@ Event - UserAuthenticated
 Actor - Authorized and Authenticated Account (admin, manager, developer, etc) \
 Command - Create Task \
 Data - Task + Task public id \
-Event - TaskCreated
+Event - Task.Created
 
 ---
 
@@ -37,7 +37,7 @@ Event - TaskCreated
 Actor - Authorized and Authenticated Account (admin, manager) \
 Command - Assign Tasks \
 Data - Account public id of the related developer \
-Event - TaskAssigned - each assigned task generates this event
+Event - Task.Assigned - each assigned task generates this event
 
 ---
 
@@ -51,7 +51,7 @@ Complete task will be a command
 Actor - Authorized and Authenticated Account (can be any role) \
 Command - Complete Task \
 Data - Task - status and public_id, Account public_id \
-Event - TaskCompleted
+Event - Task.Completed
 
 ---
 
@@ -74,17 +74,17 @@ Showing account balance for the user is a Read Model.
 
 Account balance change is a Command.
 
-Actor - TaskCompleted/AssignedTaskCostAccounted - events \
+Actor - Task.Completed/Task.AssignedAndCostAccounted - events \
 Command - Balance Change \
 Data - Account Balance, Account \
-Event - AccountBalanceChanged
+Event - Account.BalanceChanged
 
 Account balance audit is a Command.
 
-Actor - AccountBalanceChanged - event \
+Actor - Account.BalanceChanged - event \
 Command - Audit Balance Change \
 Data - Account Balance \
-Event - BalanceChangeAudited - this event is not needed
+Event - Balance.ChangeAudited - this event is not needed
 
 ---
 
@@ -99,16 +99,16 @@ Event - BalanceChangeAudited - this event is not needed
   закрыть достаточное количество задач в течении дня.
 
 Calculate Task Cost Command: \
-Actor - TaskCreated - event \
+Actor - Task.Created - event \
 Command - Add Task Cost \
 Data - Task, Task public_id \
-Event - TaskCostCalculated
+Event - Task.CostCalculated
 
 Write Off Task Cost From Developer Account Command: \
-Actor - TaskAssigned - event \
+Actor - Task.Assigned - event \
 Command - Write Off Task Cost From Developer Account \
 Data - Task, Account, Account Balance \
-Event - AssignedTaskCostAccounted
+Event - Task.AssignedAndCostAccounted
 
 ---
 
@@ -127,13 +127,13 @@ Billing Period Command: \
 Actor - Time Based System Event - End of the day \
 Command - Close Billing Period \
 Data - Account Balance \
-Event - BillingPeriodClosed
+Event - Billing.PeriodClosed
 
 Notification Command: \
-Actor - BillingPeriodClosed \
+Actor - Billing.PeriodClosed \
 Command - Send Notification \
 Data - Account Balance, Account (email) \
-Event - BillingPeriodNotificationSent - not needed
+Event - Billing.PeriodNotificationSent - not needed
 
 ---
 
@@ -141,16 +141,16 @@ Event - BillingPeriodNotificationSent - not needed
 и в аудитлоге всех операций аккаунтинга должно быть отображено, что была выплачена сумма.
 
 Account Balance Nullify Command: \
-Actor - BillingPeriodClosed \
+Actor - Billing.PeriodClosed \
 Command - Nullify Account Balance \
 Data - Account Balance \
-Event - AccountBalanceNullified
+Event - Account.BalanceNullified
 
 Account Balance Nullify Audit Command: \
-Actor - AccountBalanceNullified \
+Actor - Account.BalanceNullified \
 Command - Audit Account Balance Nullify \
 Data - Account Balance \
-Event - AccountBalanceNullifyAudited - not needed
+Event - Account.BalanceNullifyAudited - not needed
 
 ---
 
@@ -183,22 +183,22 @@ Business Chain format:
 
 ### Task Creation
 
-Create Task Command > TaskCreated Event > Add Task Cost Command
+Create Task Command > Task.Created Event > Add Task Cost Command
 
 ### Tasks Assignment
 
-Assign Tasks Command > TaskAssigned Event > Write Off Task Cost From Developer Account Command >
-AssignedTaskCostAccounted Event > Balance Change Command > AccountBalanceChanged Event >
+Assign Tasks Command > Task.Assigned Event > Write Off Task Cost From Developer Account Command >
+Task.AssignedAndCostAccounted Event > Balance Change Command > Account.BalanceChanged Event >
 Audit Balance Change Command
 
 ### Task Completion
 
-Complete Task Command > TaskCompleted Event > Balance Change Command > AccountBalanceChanged Event >
+Complete Task Command > Task.Completed Event > Balance Change Command > Account.BalanceChanged Event >
 Audit Balance Change Command
 
 ### Closing Billing Period
 
-Close Billing Period Command > BillingPeriodClosed Event > Nullify Account Balance Command >
-AccountBalanceNullifyAudited Event > Audit Account Balance Nullify Command
+Close Billing Period Command > Billing.PeriodClosed Event > Nullify Account Balance Command >
+Account.BalanceNullifyAudited Event > Audit Account Balance Nullify Command
 
-Close Billing Period Command > BillingPeriodClosed Event > Send Notification Command
+Close Billing Period Command > Billing.PeriodClosed Event > Send Notification Command

@@ -2,43 +2,43 @@
 
 ## Business Events
 
-### RoleChanged
+### Role.Changed
 
 Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-### Task Assigned
+### Task.Assigned
 
 Producer: Tasks
 
 Consumers: Accounting
 
-### AssignedTaskCostAccounted
+### Task.AssignedAndCostAccounted
 
 Producer: Accounting
 
 Consumers: Tasks, Analytics
 
-### AccountingBalanceChanged
+### Account.BalanceChanged
 
 Producer: Accounting
 
 Consumers: Analytics
 
-### TaskCompleted
+### Task.Completed
 
 Producer: Tasks
 
 Consumers: Accounting
 
-### BillingPeriodClosed
+### Billing.PeriodClosed
 
 Producer: Accounting
 
 Consumers: -
 
-### AccountBalanceNullifyAudited
+### Account.BalanceNullifyAudited
 
 Producer: Accounting
 
@@ -46,37 +46,37 @@ Consumers: Analytics
 
 ## CUD events
 
-### AccountCreated
+### Account.Created
 
 Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-### AccountDeleted
+### Account.Deleted
 
 Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-### UserLoggedIn
+### User.Authenticated
 
 Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-### UserLoggedOut
+### User.LoggedOut
 
 Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-### TaskCreated
+### Task.Created
 
 Producer: Tasks
 
 Consumers: Accounting
 
-## TaskCostCalculated
+## Task.CostCalculated
 
 Producer: Accounting
 

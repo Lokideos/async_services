@@ -5,12 +5,12 @@ This folder contains all information about the project documentation.
 ## Documentation
 
 Below is the project documentation list:
-* Initial project documentation
-* Commands, Read Models, and Business Chains
-* Business Chains diagram
-* Data Model diagram
-* Domain Model diagram
-* BE and CUD events' producers and consumers
+* [Initial project documentation](initial/README.md)
+* [Commands, Read Models, and Business Chains](business_requirements/README.md)
+* [Business Chains diagram](business_requirements/business_chains_diagrams.jpeg)
+* [Data Model diagram](data_model.jpeg)
+* [Domain Model diagram](domain_model.jpeg)
+* [BE and CUD events' producers and consumers](events/README.md)
 
 ## Services
 

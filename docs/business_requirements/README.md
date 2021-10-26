@@ -3,14 +3,14 @@
 This file contains business requirements transformed to Commands using Event Storming methodology
 
 ## Event Storming
- 
+
 Таск-трекер должен быть отдельным дашбордом и доступен всем сотрудникам компании UberPopug Inc.
 
 This will be a Read Model.
 
 ---
 
-Авторизация в таск-трекере должна выполняться через общий сервис авторизации UberPopug Inc 
+Авторизация в таск-трекере должна выполняться через общий сервис авторизации UberPopug Inc
 (у нас там инновационная система авторизации на основе формы клюва).
 
 Actor - User \
@@ -37,8 +37,8 @@ Event - TaskCreated
 
 ---
 
-Менеджеры или администраторы должны иметь кнопку «заассайнить задачи», которая возьмёт все открытые задачи 
-и рандомно заассайнит каждую на любого из сотрудников. Не успел закрыть задачу до реассайна — 
+Менеджеры или администраторы должны иметь кнопку «заассайнить задачи», которая возьмёт все открытые задачи
+и рандомно заассайнит каждую на любого из сотрудников. Не успел закрыть задачу до реассайна —
 сорян, делай следующую.
 
 Actor - Authorized and Authenticated Account (admin, manager) \
@@ -48,8 +48,8 @@ Event - TaskAssigned - each assigned task generates this event
 
 ---
 
-Каждый сотрудник должен иметь возможность видеть в отдельном месте список заассайненных на него задач 
-+ отметить задачу выполненной.
+Каждый сотрудник должен иметь возможность видеть в отдельном месте список заассайненных на него задач
+и отметить задачу выполненной.
 
 Showing tasks lists business requirement will be a Read Model.
 
@@ -96,13 +96,14 @@ Event - BalanceChangeAudited - this event is not needed
 ---
 
 Расценки:
+
 - цены на задачу определяется единоразово, в момент появления в системе (можно с минимальной задержкой)
-    - цены рассчитывается без привязки к сотруднику
+  - цены рассчитывается без привязки к сотруднику
 - формула, которая говорит сколько списать денег с сотрудника при ассайне задачи — `rand(-10..-20)$`
 - формула, которая говорит сколько начислить денег сотруднику для выполненой задачи — `rand(20..40)$`
 - деньги списываются сразу после ассайна на сотрудника, а начисляются после выполнения задачи.
-- отрицательный баланс переносится на следующий день. Единственный способ его погасить - 
-закрыть достаточное количество задач в течении дня.
+- отрицательный баланс переносится на следующий день. Единственный способ его погасить -
+  закрыть достаточное количество задач в течении дня.
 
 Calculate Task Cost Command: \
 Actor - TaskCreated - event \
@@ -125,6 +126,7 @@ Read Model.
 ---
 
 В конце дня необходимо:
+
 - считать сколько денег сотрудник получил за рабочий день
 - отправлять на почту сумму выплаты.
 
@@ -163,7 +165,7 @@ Event - AccountBalanceNullifyAudited - not needed
 
 Read Model.
 
---- 
+---
 
 Аналитика — это отдельный дашборд, доступный только админам.
 
@@ -192,18 +194,18 @@ Create Task Command > TaskCreated Event > Add Task Cost Command
 
 ### Tasks Assignment
 
-Assign Tasks Command > TaskAssigned Event > Write Off Task Cost From Developer Account Command > 
-AssignedTaskCostAccounted Event > Balance Change Command > AccountBalanceChanged Event > 
+Assign Tasks Command > TaskAssigned Event > Write Off Task Cost From Developer Account Command >
+AssignedTaskCostAccounted Event > Balance Change Command > AccountBalanceChanged Event >
 Audit Balance Change Command
 
 ### Task Completion
 
-Complete Task Command > TaskCompleted Event > Balance Change Command > AccountBalanceChanged Event > 
+Complete Task Command > TaskCompleted Event > Balance Change Command > AccountBalanceChanged Event >
 Audit Balance Change Command
 
 ### Closing Billing Period
 
-Close Billing Period Command > BillingPeriodClosed Event > Nullify Account Balance Command > 
+Close Billing Period Command > BillingPeriodClosed Event > Nullify Account Balance Command >
 AccountBalanceNullifyAudited Event > Audit Account Balance Nullify Command
 
 Close Billing Period Command > BillingPeriodClosed Event > Send Notification Command

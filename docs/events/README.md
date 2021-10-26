@@ -8,7 +8,6 @@ Producer: Auth
 
 Consumers: Tasks, Accounting, Analytics
 
-
 ### Task Assigned
 
 Producer: Tasks

@@ -1,0 +1,13 @@
+---
+name: Markdown linter
+on:
+  push:
+
+jobs:
+  mdl:
+    name: Markdown linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Markdown Lint
+        uses: actionshub/markdownlint@main

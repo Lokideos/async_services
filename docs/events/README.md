@@ -1,42 +1,83 @@
-# Существующие эвенты и их значимые поля (без id, gid и т д) 
+# Events in Task Tracker system
 
-## Tasks
+## Business Events
 
-### TaskCreated
+### Role.Changed
 
-- Title
-- Description
+Producer: Auth
 
-### TaskPriceSet
+Consumers: Tasks, Accounting, Analytics
 
-- Price
+### Task.Assigned
 
-### TaskClosed
+Producer: Tasks
 
-N/A (содержит только `gid`)
+Consumers: Accounting
 
-## User
+### Task.AssignedAndCostAccounted
 
-### UserLoggedIn
+Producer: Accounting
 
-N/A (содержит только `gid`)
+Consumers: Tasks, Analytics
 
-### UserLoggedOut
+### Account.BalanceChanged
 
-- Token
+Producer: Accounting
 
-### UserRoleChanged
+Consumers: Analytics
 
-- Roles
+### Task.Completed
 
-### UserCreated
+Producer: Tasks
 
-- Name
-- Email
-- Roles
+Consumers: Accounting
 
-## Accounting
+### Billing.PeriodClosed
 
-### DayClosed
+Producer: Accounting
 
-- Amount
+Consumers: -
+
+### Account.BalanceNullifyAudited
+
+Producer: Accounting
+
+Consumers: Analytics
+
+## CUD events
+
+### Account.Created
+
+Producer: Auth
+
+Consumers: Tasks, Accounting, Analytics
+
+### Account.Deleted
+
+Producer: Auth
+
+Consumers: Tasks, Accounting, Analytics
+
+### User.Authenticated
+
+Producer: Auth
+
+Consumers: Tasks, Accounting, Analytics
+
+### User.LoggedOut
+
+Producer: Auth
+
+Consumers: Tasks, Accounting, Analytics
+
+### Task.Created
+
+Producer: Tasks
+
+Consumers: Accounting
+
+## Task.CostCalculated
+
+Producer: Accounting
+
+Consumers: Tasks, Analytics

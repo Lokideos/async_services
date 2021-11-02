@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+ruby '3.0.1'
+
+gem 'roda', '~> 3.49'
+gem 'puma', '~> 5.5'
+gem 'rake', '~> 13.0'
+
+gem 'i18n', '~> 1.8'
+gem 'config', '~> 3.1'
+
+gem 'dry-initializer', '~> 3.0'
+gem 'dry-validation', '~> 1.7'
+
+gem 'activesupport', '~> 6.0', require: false
+
+gem 'pg', '~> 1.2'
+gem 'sequel', '~> 5.50'
+gem 'sequel_secure_password', '~> 0.2'
+
+group :development do
+  gem 'ruby_jard', '~> 0.3'
+  gem 'rubocop-airbnb', '~> 4.0'
+end

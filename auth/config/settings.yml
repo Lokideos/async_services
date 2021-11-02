@@ -1,0 +1,6 @@
+app:
+  name: 'async-auth'
+db:
+  adapter: postgresql
+  host: localhost
+  port: 5432

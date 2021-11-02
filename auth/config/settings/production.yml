@@ -1,0 +1,6 @@
+db:
+  port: <%= ENV.fetch('DB_PORT') %>
+  host: <%= ENV.fetch('DB_HOST') %>
+  user: <%= ENV.fetch('DB_USER') %>
+  password: <%= ENV.fetch('DB_PASSWORD') %>
+  database: async_auth_production

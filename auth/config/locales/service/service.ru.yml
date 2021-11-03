@@ -3,3 +3,6 @@ en:
     user_sessions:
       create_service:
         unauthorized: 'Session cannot be created'
+    users:
+      fetch_service:
+        not_found: 'User not found'

@@ -47,7 +47,7 @@ class Application < Roda
             response['Content-Type'] = 'application/json'
 
             if result.success?
-              token = JwtEncoder.encode(uuid: result.session.gid)
+              token = JwtEncoder.encode(gid: result.session.gid)
               options = { meta: { token: token } }
               serializer = UserSerializer.new(result.user, options)
 
@@ -56,6 +56,23 @@ class Application < Roda
             else
               response.status = 401
               error_response(result.session || result.errors)
+            end
+          end
+        end
+
+        r.on 'me' do
+          r.get do
+            result = Users::FetchService.call(extracted_token['gid'])
+            response['Content-Type'] = 'application/json'
+
+            if result.success?
+              serializer = UserSerializer.new(result.user)
+
+              response.status = 200
+              serializer.serializable_hash.to_json
+            else
+              response.status = 403
+              error_response(result.errors)
             end
           end
         end

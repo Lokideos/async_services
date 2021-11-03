@@ -5,6 +5,8 @@ class Application < Roda
     File.expand_path('..', __dir__)
   end
 
+  plugin :public, root: "#{Application.root}/spa/build"
+  plugin :type_routing
   plugin :environments
   plugin :json_parser
   plugin(:not_found) { not_found_response }
@@ -14,10 +16,9 @@ class Application < Roda
   include Auth
 
   route do |r|
-    r.root do
-      response['Content-Type'] = 'application/json'
-      response.status = 200
-      { status: 'ok' }.to_json
+    r.public
+    r.get do
+      r.html { IO.read("#{Application.root}/spa/build/index.html") }
     end
 
     r.on 'api' do
@@ -77,10 +78,6 @@ class Application < Roda
           end
         end
       end
-    end
-
-    r.get 'favicon.ico' do
-      'no icon'
     end
   end
 

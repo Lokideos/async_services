@@ -1,3 +1,5 @@
+app:
+  secret: <%= ENV.fetch('APP_SECRET') %>
 db:
   port: <%= ENV.fetch('DB_PORT') %>
   host: <%= ENV.fetch('DB_HOST') %>

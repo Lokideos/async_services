@@ -21,6 +21,9 @@ gem 'activesupport', '~> 6.0', require: false
 gem 'pg', '~> 1.2'
 gem 'sequel', '~> 5.50'
 gem 'sequel_secure_password', '~> 0.2'
+gem 'jwt', '~> 2.3'
+
+gem 'jsonapi-serializer', '~> 2.2'
 
 group :development do
   gem 'ruby_jard', '~> 0.3'

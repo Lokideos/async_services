@@ -11,7 +11,6 @@ namespace :db do
     Sequel.connect(Settings.db.to_hash.slice(*CONNECTION_PARAMETERS)) do |db|
       db.execute "CREATE DATABASE #{Settings.db.to_hash[:database]}"
     end
-    Rake::Task['db:add_extensions'].execute
   end
 end
 # rubocop:enable Airbnb/RiskyActiverecordInvocation

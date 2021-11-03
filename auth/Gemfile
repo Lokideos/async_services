@@ -25,7 +25,12 @@ gem 'jwt', '~> 2.3'
 
 gem 'jsonapi-serializer', '~> 2.2'
 
-group :development do
+group :development, :test do
   gem 'ruby_jard', '~> 0.3'
   gem 'rubocop-airbnb', '~> 4.0'
+
+  gem 'rspec', '~> 3.10'
+  gem 'fabrication', '~> 2.22'
+  gem 'rack-test', '~> 1.1'
+  gem 'database_cleaner-sequel', '~> 2.0'
 end

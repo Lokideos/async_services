@@ -14,7 +14,7 @@ class ApiRouter < AbstractApiRouter
   route do |r|
     r.multi_run
     r.root do
-      %w[docs will be here one day]
+      %w[auth profile]
     end
   end
 end

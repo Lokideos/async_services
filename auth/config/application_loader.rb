@@ -37,6 +37,8 @@ module ApplicationLoader
 
   def require_app
     require_dir 'app/helpers'
+    require_dir 'app/routes'
+    require_dir 'app/routers'
     require_file 'config/application'
     require_file 'app/services/basic_service'
     require_dir 'app/contracts'

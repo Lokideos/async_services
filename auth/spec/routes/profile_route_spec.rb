@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Application, type: :routes do
-  describe 'GET api/v1/me' do
+  describe 'GET api/v1/profile' do
     let(:user) { Fabricate(:user, email: 'bob@example.com', password: 'givemeatoken') }
     let(:session) { Fabricate(:user_session, user: user) }
-    let(:endpoint) { 'api/v1/me' }
+    let(:endpoint) { 'api/v1/profile' }
 
     context 'when jwt token is missing' do
       it 'returns an error' do

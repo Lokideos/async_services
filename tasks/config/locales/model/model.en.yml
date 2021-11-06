@@ -3,6 +3,10 @@ en:
     errors:
       user:
         name:
-          gid: 'Gid cannot be blank'
+          gid:
+            blank: 'Gid cannot be blank'
         role:
           bad_role: 'Role can only by developer, manager or admin'
+      user_session:
+        gid:
+          blank: 'Gid cannot be blank'

@@ -12,3 +12,9 @@ user_data = [
 ]
 
 User.import(%i(gid role created_at updated_at), user_data)
+
+sessions_data = [
+  [SecureRandom.uuid, User.first&.id, time, time]
+]
+
+UserSession.import(%i(gid user_id created_at updated_at), sessions_data)

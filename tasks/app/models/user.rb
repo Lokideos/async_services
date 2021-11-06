@@ -3,6 +3,10 @@
 class User < Sequel::Model
   plugin :association_dependencies
 
+  one_to_many :sessions, class: 'UserSession'
+
+  add_association_dependencies sessions: :delete
+
   ALLOWED_ROLES = %w(developer manager admin).freeze
 
   def validate

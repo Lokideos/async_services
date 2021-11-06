@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Fabricator(:user) do
+Fabricator(:user_session) do
   gid { SecureRandom.uuid }
-  role 'developer'
+  user
 end

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 RSpec.describe ErrorSerializer do
-  subject { described_class }
+  subject(:serializer) { described_class }
 
   describe 'from_messages' do
     context 'with single error message' do
       let(:message) { 'Error message' }
 
       it 'returns errors representation' do
-        expect(subject.from_message(message)).to eq(
+        expect(serializer.from_message(message)).to eq(
           errors: [
             { detail: message },
           ]
@@ -20,7 +20,7 @@ RSpec.describe ErrorSerializer do
       let(:messages) { ['Error message 1', 'Error message 2'] }
 
       it 'returns errors representation' do
-        expect(subject.from_messages(messages)).to eq(
+        expect(serializer.from_messages(messages)).to eq(
           errors: [
             { detail: messages[0] },
             { detail: messages[1] },
@@ -34,7 +34,7 @@ RSpec.describe ErrorSerializer do
       let(:meta) { { level: 'error' } }
 
       it 'returns errors representation' do
-        expect(subject.from_message(message, meta: meta)).to eq(
+        expect(serializer.from_message(message, meta: meta)).to eq(
           errors: [
             {
               detail: message,
@@ -51,29 +51,29 @@ RSpec.describe ErrorSerializer do
       double(
         'model',
         errors: {
-          blue: ['не может быть пустым'],
-          green: ['не может быть пустым', 'имеет непредусмотренное значение'],
+          blue: ['can not be empty'],
+          green: ['can not be empty', 'have not defined value'],
         }
       )
     end
 
     it 'returns errors representation' do
-      expect(subject.from_model(model)).to eq(
+      expect(serializer.from_model(model)).to eq(
         errors: [
           {
-            detail: %(не может быть пустым),
+            detail: %(can not be empty),
             source: {
               pointer: '/data/attributes/blue',
             },
           },
           {
-            detail: %(не может быть пустым),
+            detail: %(can not be empty),
             source: {
               pointer: '/data/attributes/green',
             },
           },
           {
-            detail: %(имеет непредусмотренное значение),
+            detail: %(have not defined value),
             source: {
               pointer: '/data/attributes/green',
             },

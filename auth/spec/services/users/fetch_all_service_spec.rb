@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Users::FetchAllService do
-  subject { described_class }
+  subject(:service) { described_class }
 
   context 'when user is authenticated' do
     let(:session) { Fabricate(:user_session) }
@@ -12,7 +12,7 @@ RSpec.describe Users::FetchAllService do
     end
 
     it 'assigns users' do
-      result = subject.call(session.gid)
+      result = service.call(session.gid)
 
       expect(result.users).to eq(query_result)
     end
@@ -20,13 +20,13 @@ RSpec.describe Users::FetchAllService do
 
   context 'when user is unauthenticated' do
     it 'does not assign user' do
-      result = subject.call(SecureRandom.uuid)
+      result = service.call(SecureRandom.uuid)
 
       expect(result.users).to be_nil
     end
 
     it 'adds an error' do
-      result = subject.call(SecureRandom.uuid)
+      result = service.call(SecureRandom.uuid)
 
       expect(result).to be_failure
       expect(result.errors).to include('User is not authenticated')

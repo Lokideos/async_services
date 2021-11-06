@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe UserSessions::DestroyService do
-  subject { described_class }
+  subject(:service) { described_class }
 
   context 'valid parameters' do
     let!(:session) { Fabricate(:user_session) }
 
     it 'destroys a session' do
-      expect { subject.call(session.gid) }.to change(UserSession, :count).by(-1)
+      expect { service.call(session.gid) }.to change(UserSession, :count).by(-1)
     end
   end
 
   context 'when gid is missing' do
     it 'adds an error' do
-      result = subject.call(nil)
+      result = service.call(nil)
 
       expect(result).to be_failure
       expect(result.errors).to include('Session with this gid does not exist')
@@ -24,7 +24,7 @@ RSpec.describe UserSessions::DestroyService do
     before { Fabricate(:user_session) }
 
     it 'adds an error' do
-      result = subject.call(SecureRandom.uuid)
+      result = service.call(SecureRandom.uuid)
 
       expect(result).to be_failure
       expect(result.errors).to include('Session with this gid does not exist')

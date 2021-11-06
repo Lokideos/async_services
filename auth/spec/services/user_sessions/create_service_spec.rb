@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 RSpec.describe UserSessions::CreateService do
-  subject { described_class }
+  subject(:service) { described_class }
 
   context 'valid parameters' do
     let!(:user) { Fabricate(:user, email: 'bob@example.com', password: 'givemeatoken') }
 
     it 'creates a new session' do
-      expect { subject.call('bob@example.com', 'givemeatoken') }.
+      expect { service.call('bob@example.com', 'givemeatoken') }.
         to change { user.reload.sessions.count }.from(0).to(1)
     end
 
     it 'assigns session' do
-      result = subject.call('bob@example.com', 'givemeatoken')
+      result = service.call('bob@example.com', 'givemeatoken')
 
       expect(result.session).to be_kind_of(UserSession)
     end
 
     it 'assigns user' do
-      result = subject.call('bob@example.com', 'givemeatoken')
+      result = service.call('bob@example.com', 'givemeatoken')
 
       expect(result.user).to be_kind_of(User)
     end
@@ -27,18 +27,18 @@ RSpec.describe UserSessions::CreateService do
       before { Fabricate(:user_session, user: user) }
 
       it 'does not create a new session' do
-        expect { subject.call('bob@example.com', 'givemeatoken') }.
+        expect { service.call('bob@example.com', 'givemeatoken') }.
           not_to change { user.reload.sessions.count }
       end
 
       it 'assigns session' do
-        result = subject.call('bob@example.com', 'givemeatoken')
+        result = service.call('bob@example.com', 'givemeatoken')
 
         expect(result.session).to be_kind_of(UserSession)
       end
 
       it 'assigns user' do
-        result = subject.call('bob@example.com', 'givemeatoken')
+        result = service.call('bob@example.com', 'givemeatoken')
 
         expect(result.user).to be_kind_of(User)
       end
@@ -47,12 +47,12 @@ RSpec.describe UserSessions::CreateService do
 
   context 'missing user' do
     it 'does not create session' do
-      expect { subject.call('bob@example.com', 'givemeatoken') }.
+      expect { service.call('bob@example.com', 'givemeatoken') }.
         not_to change(UserSession, :count)
     end
 
     it 'adds an error' do
-      result = subject.call('bob@example.com', 'givemeatoken')
+      result = service.call('bob@example.com', 'givemeatoken')
 
       expect(result).to be_failure
       expect(result.errors).to include('Session cannot be created')
@@ -63,12 +63,12 @@ RSpec.describe UserSessions::CreateService do
     let!(:user) { Fabricate(:user, email: 'bob@example.com', password: 'givemeatoken') }
 
     it 'does not create session' do
-      expect { subject.call('bob@example.com', 'invalid') }.
+      expect { service.call('bob@example.com', 'invalid') }.
         not_to change(UserSession, :count)
     end
 
     it 'adds an error' do
-      result = subject.call('bob@example.com', 'invalid')
+      result = service.call('bob@example.com', 'invalid')
 
       expect(result).to be_failure
       expect(result.errors).to include('Session cannot be created')

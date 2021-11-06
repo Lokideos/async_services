@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Roles::ChangeService do
-  subject { described_class }
+  subject(:service) { described_class }
 
   let(:new_role) { 'manager' }
 
@@ -10,13 +10,13 @@ RSpec.describe Roles::ChangeService do
     let!(:session) { Fabricate(:admin_user_session) }
 
     it 'changes role of the user' do
-      subject.call(user.gid, new_role, session.gid)
+      service.call(user.gid, new_role, session.gid)
 
       expect(user.reload.role).to eq(new_role)
     end
 
     it 'assigns user' do
-      result = subject.call(user.gid, new_role, session.gid)
+      result = service.call(user.gid, new_role, session.gid)
 
       expect(result.user).to be_kind_of(User)
     end
@@ -27,13 +27,13 @@ RSpec.describe Roles::ChangeService do
       let!(:user) { Fabricate(:user, email: 'bob@example.com', role: 'developer', password: 'givemeatoken') }
 
       it 'does not change the role' do
-        subject.call(user.gid, new_role, nil)
+        service.call(user.gid, new_role, nil)
 
         expect(user.reload.role).to eq('developer')
       end
 
       it 'adds an error' do
-        result = subject.call(user.gid, new_role, nil)
+        result = service.call(user.gid, new_role, nil)
 
         expect(result).to be_failure
         expect(result.errors).to include('User is not authenticated')
@@ -45,13 +45,13 @@ RSpec.describe Roles::ChangeService do
       let!(:session) { Fabricate(:user_session) }
 
       it 'does not change the role' do
-        subject.call(user.gid, new_role, session.gid)
+        service.call(user.gid, new_role, session.gid)
 
         expect(user.reload.role).to eq('developer')
       end
 
       it 'adds an error' do
-        result = subject.call(user.gid, new_role, session.gid)
+        result = service.call(user.gid, new_role, session.gid)
 
         expect(result).to be_failure
         expect(result.errors).to include('User is not authorized for this action')
@@ -62,7 +62,7 @@ RSpec.describe Roles::ChangeService do
       let!(:session) { Fabricate(:admin_user_session) }
 
       it 'adds an error' do
-        result = subject.call(nil, new_role, session.gid)
+        result = service.call(nil, new_role, session.gid)
 
         expect(result).to be_failure
         expect(result.errors).to include('User with this gid does not exist')
@@ -74,13 +74,13 @@ RSpec.describe Roles::ChangeService do
       let!(:session) { Fabricate(:admin_user_session) }
 
       it 'does not change the role' do
-        subject.call(user.gid, 'bad_role', session.gid)
+        service.call(user.gid, 'bad_role', session.gid)
 
         expect(user.reload.role).to eq('developer')
       end
 
       it 'adds an error' do
-        result = subject.call(user.gid, 'bad_role', session.gid)
+        result = service.call(user.gid, 'bad_role', session.gid)
 
         expect(result).to be_failure
         expect(result.errors).to include([:role, ["Role can only by developer, manager or admin"]])

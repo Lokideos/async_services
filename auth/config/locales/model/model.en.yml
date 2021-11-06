@@ -5,6 +5,8 @@ en:
         name:
           blank: 'Name cannot be blank'
           format: 'Use only letters, numbers and low dash for the name'
+        role:
+          bad_role: 'Role can only by developer, manager or admin'
         email:
           blank: 'Email cannot be blank'
         password:

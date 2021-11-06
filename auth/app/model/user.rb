@@ -10,6 +10,7 @@ class User < Sequel::Model
   add_association_dependencies sessions: :delete
 
   NAME_FORMAT = /\A\w+\z/.freeze
+  ALLOWED_ROLES = %w[developer manager admin].freeze
 
   def validate
     super
@@ -17,5 +18,10 @@ class User < Sequel::Model
     validates_presence :name, message: I18n.t(:blank, scope: 'model.errors.user.name')
     validates_format NAME_FORMAT, :name, message: I18n.t(:format, scope: 'model.errors.user.name')
     validates_presence :password, message: I18n.t(:blank, scope: 'model.errors.user.password')
+    validates_includes ALLOWED_ROLES,
+                       :role,
+                       message: I18n.t(:bad_role,
+                                       scope: 'model.errors.user.role',
+                                       roles: ALLOWED_ROLES)
   end
 end

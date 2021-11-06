@@ -14,6 +14,7 @@ Sequel.migration do
       column :gid, "uuid", :null=>false
       column :created_at, "timestamp(6) without time zone", :null=>false
       column :updated_at, "timestamp(6) without time zone", :null=>false
+      column :role, "roles_enum", :default=>Sequel::LiteralString.new("'developer'::roles_enum"), :null=>false
       
       index [:name], :name=>:index_users_on_name, :unique=>true
     end

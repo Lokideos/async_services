@@ -22,6 +22,7 @@ module Users
           event_type: 'CUD',
           payload: {
             gid: @user.gid,
+            role: @user.role,
           }
         )
       else

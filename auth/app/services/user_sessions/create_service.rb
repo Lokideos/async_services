@@ -35,6 +35,7 @@ module UserSessions
             event_type: 'CUD',
             payload: {
               gid: @session.gid,
+              user_gid: @user.gid,
             }
           )
         else

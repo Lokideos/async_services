@@ -15,6 +15,8 @@ module KafkaApp
           case message_payload['event_name']
           when 'AccountCreated'
             Users::CreateService.call(message_payload_data['gid'], message_payload_data['role'])
+          when 'AccountDeleted'
+            Users::DestroyService.call(message_payload_data['gid'])
           when 'UserAuthenticated'
             UserSessions::CreateService.call(message_payload_data['gid'], message_payload_data['user_gid'])
           when 'UserLoggedOut'

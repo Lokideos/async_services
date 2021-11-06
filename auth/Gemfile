@@ -8,6 +8,7 @@ ruby '3.0.1'
 
 gem 'roda', '~> 3.49'
 gem 'puma', '~> 5.5'
+gem 'rack-cors', '~> 1.1'
 gem 'rake', '~> 13.0'
 
 gem 'i18n', '~> 1.8'

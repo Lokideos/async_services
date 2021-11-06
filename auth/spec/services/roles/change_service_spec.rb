@@ -6,7 +6,7 @@ RSpec.describe Roles::ChangeService do
 
   context 'valid parameters' do
     let!(:user) { Fabricate(:user, email: 'bob@example.com', role: 'developer', password: 'givemeatoken') }
-    let!(:session) { Fabricate(:user_session) }
+    let!(:session) { Fabricate(:admin_user_session) }
 
     it 'changes role of the user' do
       subject.call(user.gid, new_role, session.gid)
@@ -39,8 +39,26 @@ RSpec.describe Roles::ChangeService do
       end
     end
 
-    context 'when user is not present' do
+    context 'when performer is not authorized for this action' do
+      let!(:user) { Fabricate(:user, email: 'bob@example.com', role: 'developer', password: 'givemeatoken') }
       let!(:session) { Fabricate(:user_session) }
+
+      it 'does not change the role' do
+        subject.call(user.gid, new_role, session.gid)
+
+        expect(user.reload.role).to eq('developer')
+      end
+
+      it 'adds an error' do
+        result = subject.call(user.gid, new_role, session.gid)
+
+        expect(result).to be_failure
+        expect(result.errors).to include('User is not authorized for this action')
+      end
+    end
+
+    context 'when user is not present' do
+      let!(:session) { Fabricate(:admin_user_session) }
 
       it 'adds an error' do
         result = subject.call(nil, new_role, session.gid)
@@ -52,7 +70,7 @@ RSpec.describe Roles::ChangeService do
 
     context 'when new role is invalid' do
       let!(:user) { Fabricate(:user, email: 'bob@example.com', role: 'developer', password: 'givemeatoken') }
-      let!(:session) { Fabricate(:user_session) }
+      let!(:session) { Fabricate(:admin_user_session) }
 
       it 'does not change the role' do
         subject.call(user.gid, 'bad_role', session.gid)

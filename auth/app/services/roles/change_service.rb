@@ -13,6 +13,8 @@ module Roles
     def call
       return fail!(I18n.t(:unauthenticated, scope: 'errors')) if @session_gid.blank? || session.blank?
 
+      return fail!(I18n.t(:unauthorized, scope: 'errors')) if session.user.role != 'admin'
+
       @user = User.first(gid: @gid)
       return fail!(I18n.t(:not_found, scope: 'service.roles.change_service')) if @user.blank?
 

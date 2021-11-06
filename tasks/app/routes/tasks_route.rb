@@ -4,6 +4,21 @@ class TasksRoute < AbstractRoute
   include Auth
 
   route do |r|
+    r.get 'me' do
+      result = Tasks::FetchForUserService.call(extracted_token['gid'])
+      response['Content-Type'] = 'application/json'
+
+      if result.success?
+        serializer = TaskSerializer.new(result.tasks)
+
+        response.status = 200
+        serializer.serializable_hash.to_json
+      else
+        response.status = 422
+        error_response(result.errors)
+      end
+    end
+
     r.get do
       result = Tasks::FetchAllService.call(extracted_token['gid'])
       response['Content-Type'] = 'application/json'

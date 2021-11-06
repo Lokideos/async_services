@@ -84,4 +84,30 @@ RSpec.describe Application, type: :routes do
       end
     end
   end
+
+  describe 'POST api/v1/auth/signout' do
+    let(:session) { Fabricate(:user_session) }
+    let(:endpoint) { 'api/v1/auth/signout' }
+
+    context 'when jwt token is present and correct' do
+      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+
+      it 'returns an OK status' do
+        post endpoint, {}, headers
+
+        expect(last_response.status).to eq(200)
+      end
+    end
+
+    context 'when jwt token is not correct' do
+      let(:headers) { { 'HTTP_AUTHORIZATION' => 'Bearer bad_token' } }
+
+      it 'returns an error' do
+        post endpoint, {}, headers
+
+        expect(last_response.status).to eq(422)
+        expect(response_body['errors']).to include('detail' => 'Session with this gid does not exist')
+      end
+    end
+  end
 end

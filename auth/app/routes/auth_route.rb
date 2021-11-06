@@ -42,5 +42,18 @@ class AuthRoute < AbstractRoute
         error_response(result.session || result.errors)
       end
     end
+
+    r.post 'signout' do
+      result = UserSessions::DestroyService.call(extracted_token['gid'])
+      response['Content-Type'] = 'application/json'
+
+      if result.success?
+        response.status = 200
+        {}.to_json
+      else
+        response.status = 422
+        error_response(result.errors)
+      end
+    end
   end
 end

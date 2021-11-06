@@ -3,6 +3,8 @@ en:
     user_sessions:
       create_service:
         unauthorized: 'Session cannot be created'
+      destroy_service:
+        not_found: 'Session with this gid does not exist'
     users:
       fetch_service:
         not_found: 'User not found'

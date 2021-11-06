@@ -10,7 +10,7 @@ RSpec.describe Application, type: :routes do
       Fabricate.times(2, :user)
     end
 
-    it 'returns a collection of ads' do
+    it 'returns a collection of users' do
       get endpoint, {}, headers
 
       expect(last_response.status).to eq(200)

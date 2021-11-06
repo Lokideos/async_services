@@ -29,6 +29,7 @@ module Roles
           event_type: 'BE',
           payload: {
             gid: @user.gid,
+            role: role
           }
         )
       else

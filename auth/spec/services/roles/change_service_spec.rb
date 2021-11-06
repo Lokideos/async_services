@@ -26,7 +26,7 @@ RSpec.describe Roles::ChangeService do
         topic: Settings.kafka.topics.authentication,
         event_name: 'RoleChanged',
         event_type: 'BE',
-        payload: { gid: user.gid }
+        payload: { gid: user.gid, role: new_role }
       )
 
       service.call(user.gid, new_role, session.gid)

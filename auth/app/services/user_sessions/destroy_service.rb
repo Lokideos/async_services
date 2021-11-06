@@ -7,7 +7,9 @@ module UserSessions
     param :gid
 
     def call
-      return fail_t!(:not_found) if @gid.blank? || session.blank?
+      if @gid.blank? || session.blank?
+        return fail_t!(:not_found)
+      end
 
       session.destroy
     end

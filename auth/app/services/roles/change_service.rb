@@ -11,7 +11,9 @@ module Roles
     attr_reader :user
 
     def call
-      return fail!(I18n.t(:unauthenticated, scope: 'errors')) if @session_gid.blank? || session.blank?
+      if @session_gid.blank? || session.blank?
+        return fail!(I18n.t(:unauthenticated, scope: 'errors'))
+      end
 
       return fail!(I18n.t(:unauthorized, scope: 'errors')) if session.user.role != 'admin'
 

@@ -2,6 +2,7 @@
 
 RSpec.describe Roles::ChangeService do
   subject { described_class }
+
   let(:new_role) { 'manager' }
 
   context 'valid parameters' do

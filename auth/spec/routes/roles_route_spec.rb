@@ -7,7 +7,7 @@ RSpec.describe Application, type: :routes do
     context 'with valid parameters' do
       let(:session) { Fabricate(:admin_user_session) }
       let!(:user) { Fabricate(:user, role: 'developer') }
-      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
       let(:params) { { gid: user.gid, role: 'manager' } }
 
       it 'returns an OK status' do
@@ -23,11 +23,10 @@ RSpec.describe Application, type: :routes do
       end
     end
 
-
     context 'with invalid parameters' do
       let(:session) { Fabricate(:admin_user_session) }
       let!(:user) { Fabricate(:user, role: 'developer') }
-      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
       let(:params) { { gid: user.gid, role: 'bad_role' } }
 
       it 'returns 422 status' do
@@ -67,7 +66,7 @@ RSpec.describe Application, type: :routes do
     context 'when user is unauthorized' do
       let(:session) { Fabricate(:user_session) }
       let!(:user) { Fabricate(:user, role: 'developer') }
-      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
       let(:params) { { gid: user.gid, role: 'manager' } }
 
       it 'returns an OK status' do

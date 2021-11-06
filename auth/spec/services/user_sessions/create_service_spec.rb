@@ -7,8 +7,8 @@ RSpec.describe UserSessions::CreateService do
     let!(:user) { Fabricate(:user, email: 'bob@example.com', password: 'givemeatoken') }
 
     it 'creates a new session' do
-      expect { subject.call('bob@example.com', 'givemeatoken') }
-        .to change { user.reload.sessions.count }.from(0).to(1)
+      expect { subject.call('bob@example.com', 'givemeatoken') }.
+        to change { user.reload.sessions.count }.from(0).to(1)
     end
 
     it 'assigns session' do
@@ -27,8 +27,8 @@ RSpec.describe UserSessions::CreateService do
       before { Fabricate(:user_session, user: user) }
 
       it 'does not create a new session' do
-        expect { subject.call('bob@example.com', 'givemeatoken') }
-          .to_not change { user.reload.sessions.count }
+        expect { subject.call('bob@example.com', 'givemeatoken') }.
+          not_to change { user.reload.sessions.count }
       end
 
       it 'assigns session' do
@@ -47,8 +47,8 @@ RSpec.describe UserSessions::CreateService do
 
   context 'missing user' do
     it 'does not create session' do
-      expect { subject.call('bob@example.com', 'givemeatoken') }
-        .not_to change(UserSession, :count)
+      expect { subject.call('bob@example.com', 'givemeatoken') }.
+        not_to change(UserSession, :count)
     end
 
     it 'adds an error' do
@@ -63,8 +63,8 @@ RSpec.describe UserSessions::CreateService do
     let!(:user) { Fabricate(:user, email: 'bob@example.com', password: 'givemeatoken') }
 
     it 'does not create session' do
-      expect { subject.call('bob@example.com', 'invalid') }
-        .not_to change(UserSession, :count)
+      expect { subject.call('bob@example.com', 'invalid') }.
+        not_to change(UserSession, :count)
     end
 
     it 'adds an error' do

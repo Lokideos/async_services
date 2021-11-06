@@ -3,7 +3,7 @@
 Sequel.migration do
   up do
     extension :pg_enum
-    create_enum(:roles_enum, %w'developer manager admin')
+    create_enum(:roles_enum, %w(developer manager admin))
 
     add_column :users, :role, 'roles_enum', null: false, default: 'developer'
   end

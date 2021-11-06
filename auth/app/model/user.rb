@@ -10,7 +10,7 @@ class User < Sequel::Model
   add_association_dependencies sessions: :delete
 
   NAME_FORMAT = /\A\w+\z/.freeze
-  ALLOWED_ROLES = %w[developer manager admin].freeze
+  ALLOWED_ROLES = %w(developer manager admin).freeze
 
   def validate
     super

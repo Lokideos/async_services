@@ -3,11 +3,11 @@
 RSpec.describe Application, type: :routes do
   describe 'GET api/v1/users' do
     let(:session) { Fabricate(:user_session) }
-    let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+    let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
     let(:endpoint) { 'api/v1/users' }
 
     before do
-      Fabricate.times(2,:user)
+      Fabricate.times(2, :user)
     end
 
     it 'returns a collection of ads' do

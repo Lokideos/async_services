@@ -5,8 +5,8 @@ RSpec.describe Users::CreateService do
 
   context 'valid parameters' do
     it 'creates a new user' do
-      expect { subject.call('bob', 'bob@example.com', 'developer', 'givemeatoken') }
-        .to change(User, :count).from(0).to(1)
+      expect { subject.call('bob', 'bob@example.com', 'developer', 'givemeatoken') }.
+        to change(User, :count).from(0).to(1)
     end
 
     it 'assigns user' do
@@ -18,8 +18,8 @@ RSpec.describe Users::CreateService do
 
   context 'invalid parameters' do
     it 'does not create user' do
-      expect { subject.call('bob', 'bob@example.com', 'developer', '') }
-        .not_to change(User, :count)
+      expect { subject.call('bob', 'bob@example.com', 'developer', '') }.
+        not_to change(User, :count)
     end
 
     it 'assigns user' do

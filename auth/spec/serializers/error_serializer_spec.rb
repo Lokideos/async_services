@@ -10,7 +10,7 @@ RSpec.describe ErrorSerializer do
       it 'returns errors representation' do
         expect(subject.from_message(message)).to eq(
           errors: [
-            { detail: message }
+            { detail: message },
           ]
         )
       end
@@ -23,7 +23,7 @@ RSpec.describe ErrorSerializer do
         expect(subject.from_messages(messages)).to eq(
           errors: [
             { detail: messages[0] },
-            { detail: messages[1] }
+            { detail: messages[1] },
           ]
         )
       end
@@ -38,8 +38,8 @@ RSpec.describe ErrorSerializer do
           errors: [
             {
               detail: message,
-              meta: meta
-            }
+              meta: meta,
+            },
           ]
         )
       end
@@ -52,7 +52,7 @@ RSpec.describe ErrorSerializer do
         'model',
         errors: {
           blue: ['не может быть пустым'],
-          green: ['не может быть пустым', 'имеет непредусмотренное значение']
+          green: ['не может быть пустым', 'имеет непредусмотренное значение'],
         }
       )
     end
@@ -63,21 +63,21 @@ RSpec.describe ErrorSerializer do
           {
             detail: %(не может быть пустым),
             source: {
-              pointer: '/data/attributes/blue'
-            }
+              pointer: '/data/attributes/blue',
+            },
           },
           {
             detail: %(не может быть пустым),
             source: {
-              pointer: '/data/attributes/green'
-            }
+              pointer: '/data/attributes/green',
+            },
           },
           {
             detail: %(имеет непредусмотренное значение),
             source: {
-              pointer: '/data/attributes/green'
-            }
-          }
+              pointer: '/data/attributes/green',
+            },
+          },
         ]
       )
     end

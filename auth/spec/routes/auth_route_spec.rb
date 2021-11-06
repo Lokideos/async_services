@@ -16,6 +16,7 @@ RSpec.describe Application, type: :routes do
 
     context 'invalid parameters' do
       let(:params) { { name: 'b.o.b', email: 'bob@example.com', role: 'developer', password: 'givemeatoken' } }
+
       it 'returns an error' do
         post endpoint, params
 
@@ -24,8 +25,8 @@ RSpec.describe Application, type: :routes do
           {
             'detail' => 'Use only letters, numbers and low dash for the name',
             'source' => {
-              'pointer' => '/data/attributes/name'
-            }
+              'pointer' => '/data/attributes/name',
+            },
           }
         )
       end
@@ -90,7 +91,7 @@ RSpec.describe Application, type: :routes do
     let(:endpoint) { 'api/v1/auth/signout' }
 
     context 'when jwt token is present and correct' do
-      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode( { gid: session.gid })}" } }
+      let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
 
       it 'returns an OK status' do
         post endpoint, {}, headers

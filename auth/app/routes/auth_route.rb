@@ -11,7 +11,10 @@ class AuthRoute < AbstractRoute
         response['Content-Type'] = 'application/json'
 
         if result.success?
-          serializer = UserSerializer.new(result.user)
+          login_result = UserSessions::CreateService.call(user_params[1], user_params[2])
+          token = JwtEncoder.encode(gid: login_result.session.gid)
+          options = { meta: { token: token } }
+          serializer = UserSerializer.new(result.user, options)
 
           response.status = 201
           serializer.serializable_hash.to_json

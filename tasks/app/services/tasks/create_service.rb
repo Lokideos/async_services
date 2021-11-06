@@ -21,7 +21,19 @@ module Tasks
 
       @task = ::Task.new(title: @title, description: @description, status: ::Task::INITIAL_STATUS)
 
-      @task.valid? ? @user.add_task(@task) : fail!(@task.errors)
+      if @task.valid?
+        @user.add_task(@task)
+        EventProducer.send_event(
+          topic: Settings.kafka.topics.tasks,
+          event_name: 'TaskCreated',
+          event_type: 'CUD',
+          payload: {
+            gid: @task.gid,
+          }
+        )
+      else
+        fail!(@task.errors)
+      end
     end
 
     private

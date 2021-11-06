@@ -12,6 +12,14 @@ module UserSessions
       end
 
       session.destroy
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'UserLoggedOut',
+        event_type: 'CUD',
+        payload: {
+          gid: @session.gid,
+        }
+      )
     end
 
     private

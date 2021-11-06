@@ -8,6 +8,8 @@ en:
     users:
       fetch_service:
         not_found: 'User not found'
+      destroy_service:
+        not_found: 'User not found'
     roles:
       change_service:
         not_found: 'User with this gid does not exist'

@@ -69,15 +69,10 @@ RSpec.describe Application, type: :routes do
       let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
       let(:params) { { gid: user.gid, role: 'manager' } }
 
-      it 'returns an OK status' do
+      it 'returns an error' do
         patch endpoint, params, headers
 
         expect(last_response.status).to eq(422)
-      end
-
-      it 'returns serialized user' do
-        patch endpoint, params, headers
-
         expect(response_body['errors']).to include('detail' => 'User is not authorized for this action')
       end
     end

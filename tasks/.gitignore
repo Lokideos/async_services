@@ -70,4 +70,4 @@ docker-compose.yml
 *.local.yml
 
 # Ignore logs
-.log/
+log/

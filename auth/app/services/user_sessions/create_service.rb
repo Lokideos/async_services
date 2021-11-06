@@ -22,9 +22,13 @@ module UserSessions
     end
 
     def create_session
-      @session = UserSession.new(user: @user)
+      @session = @user.sessions.first
 
-      @session.valid? ? @user.add_session(@session) : fail!(@session.errors)
+      if @session.blank?
+        @session = UserSession.new(user: @user)
+
+        @session.valid? ? @user.add_session(@session) : fail!(@session.errors)
+      end
     end
 
     def fail_t!(key)

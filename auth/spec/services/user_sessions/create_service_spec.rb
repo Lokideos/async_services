@@ -22,6 +22,27 @@ RSpec.describe UserSessions::CreateService do
 
       expect(result.user).to be_kind_of(User)
     end
+
+    context 'when session is already present for user' do
+      before { Fabricate(:user_session, user: user) }
+
+      it 'does not create a new session' do
+        expect { subject.call('bob@example.com', 'givemeatoken') }
+          .to_not change { user.reload.sessions.count }
+      end
+
+      it 'assigns session' do
+        result = subject.call('bob@example.com', 'givemeatoken')
+
+        expect(result.session).to be_kind_of(UserSession)
+      end
+
+      it 'assigns user' do
+        result = subject.call('bob@example.com', 'givemeatoken')
+
+        expect(result.user).to be_kind_of(User)
+      end
+    end
   end
 
   context 'missing user' do

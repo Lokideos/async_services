@@ -19,7 +19,8 @@ gem 'dry-validation', '~> 1.7'
 
 gem 'activesupport', '~> 6.0', require: false
 
-gem 'waterdrop', '~> 2.0'
+gem 'waterdrop', '~> 1.4'
+gem 'karafka', '~> 1.4'
 
 gem 'pg', '~> 1.2'
 gem 'sequel', '~> 5.50'

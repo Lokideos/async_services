@@ -68,3 +68,6 @@ docker-compose.yml
 
 # Ignore local settings
 *.local.yml
+
+# Ignore logs
+.log/

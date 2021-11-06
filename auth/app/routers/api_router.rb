@@ -10,11 +10,12 @@ class ApiRouter < AbstractApiRouter
 
   run 'v1/auth', AuthRoute
   run 'v1/profile', ProfileRoute
+  run 'v1/users', UsersRoute
 
   route do |r|
     r.multi_run
     r.root do
-      %w[auth profile]
+      %w[auth profile users]
     end
   end
 end

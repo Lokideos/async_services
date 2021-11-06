@@ -1,2 +1,3 @@
 en:
-  hello: 'Hello world!'
+  errors:
+    unauthenticated: 'User is not authenticated'

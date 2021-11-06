@@ -1,0 +1,7 @@
+app:
+  name: 'async-tasks'
+  secret: not-secure
+db:
+  adapter: postgresql
+  host: localhost
+  port: 5432

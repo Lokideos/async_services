@@ -25,6 +25,7 @@ RSpec.describe Users::CreateService do
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
+          role: 'developer'
         }
       )
 

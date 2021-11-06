@@ -33,6 +33,7 @@ RSpec.describe UserSessions::CreateService do
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
+          user_gid: user.gid
         }
       )
 

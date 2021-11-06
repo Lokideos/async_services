@@ -8,6 +8,12 @@ class User < Sequel::Model
 
   add_association_dependencies sessions: :delete
 
+  dataset_module do
+    def developer_ids
+      where(role: 'developer').map(&:id)
+    end
+  end
+
   ALLOWED_ROLES = %w(developer manager admin).freeze
 
   def validate

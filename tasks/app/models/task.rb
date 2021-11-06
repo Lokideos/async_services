@@ -6,6 +6,12 @@ class Task < Sequel::Model
 
   many_to_one :user
 
+  dataset_module do
+    def non_closed_tasks
+      where(status: INITIAL_STATUS).all
+    end
+  end
+
   INITIAL_STATUS = 'in_progress'
 
   def validate

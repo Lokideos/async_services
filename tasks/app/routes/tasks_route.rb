@@ -19,5 +19,18 @@ class TasksRoute < AbstractRoute
         error_response(result.task&.errors || result.errors)
       end
     end
+
+    r.post 'assign' do
+      result = Tasks::AssignService.call(extracted_token['gid'])
+      response['Content-Type'] = 'application/json'
+
+      if result.success?
+        response.status = 200
+        {}.to_json
+      else
+        response.status = 422
+        error_response(result.errors)
+      end
+    end
   end
 end

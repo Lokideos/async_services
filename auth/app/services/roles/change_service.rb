@@ -21,7 +21,19 @@ module Roles
       return fail!(I18n.t(:not_found, scope: 'service.roles.change_service')) if @user.blank?
 
       @user.role = role
-      @user.valid? ? @user.save : fail!(@user.errors)
+      if @user.valid?
+        @user.save
+        EventProducer.send_event(
+          topic: Settings.kafka.topics.authentication,
+          event_name: 'RoleChanged',
+          event_type: 'BE',
+          payload: {
+            gid: @user.gid,
+          }
+        )
+      else
+        fail!(@user.errors)
+      end
     end
 
     private

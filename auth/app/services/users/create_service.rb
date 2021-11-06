@@ -14,7 +14,19 @@ module Users
     def call
       @user = ::User.new(name: @name, email: @email, role: @role, password: @password)
 
-      @user.valid? ? @user.save : fail!(@user.errors)
+      if @user.valid?
+        @user.save
+        EventProducer.send_event(
+          topic: Settings.kafka.topics.authentication,
+          event_name: 'AccountCreated',
+          event_type: 'CUD',
+          payload: {
+            gid: @user.gid,
+          }
+        )
+      else
+        fail!(@user.errors)
+      end
     end
   end
 end

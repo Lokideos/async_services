@@ -9,6 +9,19 @@ RSpec.describe UserSessions::DestroyService do
     it 'destroys a session' do
       expect { service.call(session.gid) }.to change(UserSession, :count).by(-1)
     end
+
+    it 'sends an event' do
+      expect(EventProducer).to receive(:send_event).with(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'UserLoggedOut',
+        event_type: 'CUD',
+        payload: {
+          gid: session.gid,
+        }
+      )
+
+      service.call(session.gid)
+    end
   end
 
   context 'when gid is missing' do

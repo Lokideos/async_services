@@ -23,6 +23,22 @@ RSpec.describe UserSessions::CreateService do
       expect(result.user).to be_kind_of(User)
     end
 
+    it 'sends an event' do
+      stubbed_uuid = "5609bfb3-1a41-4f17-b095-d692e5d88409"
+      allow(SecureRandom).to receive(:uuid).and_return("5609bfb3-1a41-4f17-b095-d692e5d88409")
+
+      expect(EventProducer).to receive(:send_event).with(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'UserAuthenticated',
+        event_type: 'CUD',
+        payload: {
+          gid: stubbed_uuid,
+        }
+      )
+
+      service.call('bob@example.com', 'givemeatoken')
+    end
+
     context 'when session is already present for user' do
       before { Fabricate(:user_session, user: user) }
 

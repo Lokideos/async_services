@@ -27,7 +27,19 @@ module UserSessions
       if @session.blank?
         @session = UserSession.new(user: @user)
 
-        @session.valid? ? @user.add_session(@session) : fail!(@session.errors)
+        if @session.valid?
+          @user.add_session(@session)
+          EventProducer.send_event(
+            topic: Settings.kafka.topics.authentication,
+            event_name: 'UserAuthenticated',
+            event_type: 'CUD',
+            payload: {
+              gid: @session.gid,
+            }
+          )
+        else
+          fail!(@session.errors)
+        end
       end
     end
 

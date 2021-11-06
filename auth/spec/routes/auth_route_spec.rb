@@ -5,7 +5,7 @@ RSpec.describe Application, type: :routes do
     let(:endpoint) { 'api/v1/auth/signup' }
 
     context 'missing parameters' do
-      let(:params) { { name: 'bob', email: 'bob@example.com', password: '' } }
+      let(:params) { { name: 'bob', email: 'bob@example.com', role: 'developer', password: '' } }
 
       it 'returns an error' do
         post endpoint, params
@@ -15,7 +15,7 @@ RSpec.describe Application, type: :routes do
     end
 
     context 'invalid parameters' do
-      let(:params) { { name: 'b.o.b', email: 'bob@example.com', password: 'givemeatoken' } }
+      let(:params) { { name: 'b.o.b', email: 'bob@example.com', role: 'developer', password: 'givemeatoken' } }
       it 'returns an error' do
         post endpoint, params
 
@@ -32,7 +32,7 @@ RSpec.describe Application, type: :routes do
     end
 
     context 'valid parameters' do
-      let(:params) { { name: 'bob', email: 'bob@example.com', password: 'givemeatoken' } }
+      let(:params) { { name: 'bob', email: 'bob@example.com', role: 'developer', password: 'givemeatoken' } }
 
       it 'returns created status' do
         post endpoint, params

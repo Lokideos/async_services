@@ -1,1 +1,2 @@
 web-backend: bin/puma -p 3000
+web-frontend: yarn --cwd ./spa/ start

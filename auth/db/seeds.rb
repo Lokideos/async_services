@@ -6,7 +6,8 @@ users = []
 user_data = [{ name: 'Bob', email: 'bob@example.com', role: 'admin', password: 'givemeatoken' },
              { name: 'Eva', email: 'eva@example.com', role: 'manager', password: 'givemeatoken' },
              { name: 'Alice', email: 'alice@example.com', role: 'developer',
-               password: 'givemeatoken' }]
+               password: 'givemeatoken' },
+             { name: 'test', email: 'test@test.com', role: 'admin', password: '123' }]
 user_data.each do |user|
   users << User.create(user)
 end

@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 RSpec.describe Application, type: :routes do
+  describe 'GET api/v1/tasks' do
+    let(:session) { Fabricate(:user_session) }
+    let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }
+    let(:endpoint) { 'api/v1/tasks' }
+
+    before do
+      Fabricate.times(2, :task)
+    end
+
+    it 'returns a collection of ads' do
+      get endpoint, {}, headers
+
+      expect(last_response.status).to eq(200)
+      expect(response_body['data'].size).to eq(2)
+    end
+  end
+
   describe 'POST api/v1/tasks/create' do
     let(:session) { Fabricate(:user_session) }
     let(:headers) { { 'HTTP_AUTHORIZATION' => "Bearer #{JwtEncoder.encode({ gid: session.gid })}" } }

@@ -2,3 +2,4 @@ en:
   errors:
     unauthenticated: 'User is not authenticated'
     unauthorized: 'User is not authorized for this action'
+    user_not_found: 'User for this session is not found'

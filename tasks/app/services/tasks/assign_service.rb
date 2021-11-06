@@ -14,7 +14,7 @@ module Tasks
       @user = session.user
       return fail!(I18n.t(:user_not_found, scope: 'service.tasks.create_service')) if @user.blank?
 
-      return fail!(I18n.t(:unauthorized, scope: 'errors')) unless %w[admin manager].include? @user.role
+      return fail!(I18n.t(:unauthorized, scope: 'errors')) unless %w(admin manager).include? @user.role
 
       user_developer_ids = User.developer_ids
       Task.non_closed_tasks.each do |task|

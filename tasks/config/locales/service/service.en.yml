@@ -1,10 +1,5 @@
 en:
   service:
     user_sessions:
-      create_service:
-        user_not_found: 'User for this session is not found'
       destroy_service:
         not_found: 'Session with this gid does not exist'
-    tasks:
-      create_service:
-        user_not_found: 'User for this session is not found'

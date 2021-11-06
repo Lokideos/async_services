@@ -21,7 +21,7 @@ module UserSessions
     private
 
     def fail_t!(key)
-      fail!(I18n.t(key, scope: 'service.user_sessions.create_service'))
+      fail!(I18n.t(key, scope: 'errors'))
     end
   end
 end

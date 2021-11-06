@@ -62,5 +62,21 @@ class TasksRoute < AbstractRoute
         error_response(result.errors)
       end
     end
+
+    r.post 'complete' do
+      task_params = validate_with!(TaskCompleteParamsContract, params).to_h.values + [extracted_token['gid']]
+      result = Tasks::CompleteService.call(*task_params)
+      response['Content-Type'] = 'application/json'
+
+      if result.success?
+        serializer = TaskSerializer.new(result.task)
+
+        response.status = 200
+        serializer.serializable_hash.to_json
+      else
+        response.status = 422
+        error_response(result.errors)
+      end
+    end
   end
 end

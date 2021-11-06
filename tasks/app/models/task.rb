@@ -13,6 +13,7 @@ class Task < Sequel::Model
   end
 
   INITIAL_STATUS = 'in_progress'
+  DONE_STATUS = 'done'
 
   def validate
     super

@@ -3,3 +3,6 @@ en:
     user_sessions:
       destroy_service:
         not_found: 'Session with this gid does not exist'
+    tasks:
+      complete_service:
+        not_found: 'Task with this id does not exist'

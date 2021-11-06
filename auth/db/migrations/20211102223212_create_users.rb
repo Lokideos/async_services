@@ -12,6 +12,7 @@ Sequel.migration do
       column :updated_at, 'timestamp(6) without time zone', null: false
 
       index [:name], name: :index_users_on_name, unique: true
+      index [:gid], name: :index_users_on_gid, unique: true
     end
   end
 

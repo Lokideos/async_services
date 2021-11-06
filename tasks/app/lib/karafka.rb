@@ -19,6 +19,8 @@ module KafkaApp
             UserSessions::CreateService.call(message_payload_data['gid'], message_payload_data['user_gid'])
           when 'UserLoggedOut'
             UserSessions::DestroyService.call(message_payload_data['gid'])
+          when 'RoleChanged'
+            Roles::ChangeService.call(message_payload_data['gid'], message_payload_data['role'])
           else
             p 'Unknown event'
           end

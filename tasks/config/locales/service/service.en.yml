@@ -6,3 +6,6 @@ en:
     tasks:
       complete_service:
         not_found: 'Task with this id does not exist'
+    roles:
+      change_service:
+        user_not_found: 'User not found'

@@ -8,6 +8,8 @@ class ApiRouter < AbstractApiRouter
   include ApiErrors
   include Auth
 
+  run 'v1/tasks', TasksRoute
+
   route do |r|
     r.multi_run
     r.root do

@@ -4,6 +4,7 @@ class User < Sequel::Model
   plugin :association_dependencies
 
   one_to_many :sessions, class: 'UserSession'
+  one_to_many :tasks
 
   add_association_dependencies sessions: :delete
 

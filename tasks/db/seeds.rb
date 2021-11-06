@@ -18,3 +18,9 @@ sessions_data = [
 ]
 
 UserSession.import(%i(gid user_id created_at updated_at), sessions_data)
+
+task_data = [
+  ['Add Title', 'Add Title to the page', 'in_progress', SecureRandom.uuid, User.last&.id, time, time]
+]
+
+Task.import(%i(title description status gid user_id created_at updated_at), sessions_data)

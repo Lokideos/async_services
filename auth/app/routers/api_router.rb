@@ -11,6 +11,7 @@ class ApiRouter < AbstractApiRouter
   run 'v1/auth', AuthRoute
   run 'v1/profile', ProfileRoute
   run 'v1/users', UsersRoute
+  run 'v1/roles', RolesRoute
 
   route do |r|
     r.multi_run

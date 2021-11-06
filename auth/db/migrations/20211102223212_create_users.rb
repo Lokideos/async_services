@@ -13,6 +13,7 @@ Sequel.migration do
 
       index [:name], name: :index_users_on_name, unique: true
       index [:gid], name: :index_users_on_gid, unique: true
+      index [:email], name: :index_users_on_email, unique: true
     end
   end
 

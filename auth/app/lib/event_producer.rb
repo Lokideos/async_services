@@ -10,12 +10,7 @@ module EventProducer
   def send_event(topic:, event_name:, event_type:, payload:)
     raise ForbiddenEventTypeError unless ALLOWED_EVENT_TYPES.include? event_type
 
-    producer = WaterDrop::Producer.new do |config|
-      config.deliver = PRODUCER_SETTINGS[:deliver]
-      config.kafka = PRODUCER_SETTINGS[:kafka]
-    end
-
-    producer.produce_sync(payload: serialized_payload(event_name, event_type, payload), topic: topic)
+    WaterDrop::SyncProducer.call(serialized_payload(event_name, event_type, payload).to_json, topic: topic)
   end
 
   def serialized_payload(event_name, event_type, event_data)

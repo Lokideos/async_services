@@ -1,0 +1,4 @@
+en:
+  errors:
+    unauthenticated: 'User is not authenticated'
+    unauthorized: 'User is not authorized for this action'

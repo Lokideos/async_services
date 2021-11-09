@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "Starting up application..."
+
+overmind start --procfile Procfile.dev
+
+echo "Application is up and running"

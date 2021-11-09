@@ -1,0 +1,10 @@
+app:
+  name: 'async-auth'
+  secret: not-secure
+db:
+  adapter: postgresql
+  host: localhost
+  port: 5432
+kafka:
+  topics:
+    authentication: 'auth-stream'

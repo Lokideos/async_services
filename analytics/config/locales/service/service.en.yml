@@ -1,0 +1,11 @@
+en:
+  service:
+    users:
+      destroy_service:
+        user_not_found: 'User not found'
+    user_sessions:
+      destroy_service:
+        not_found: 'Session with this gid does not exist'
+    roles:
+      change_service:
+        user_not_found: 'User not found'

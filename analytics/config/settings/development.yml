@@ -1,0 +1,4 @@
+db:
+  user: postgres
+  password: notsecure
+  database: async_analytics_development

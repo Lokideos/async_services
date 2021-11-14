@@ -19,12 +19,13 @@ class User < Sequel::Model
   def validate
     super
 
-    validates_presence :gid, message: I18n.t(:blank, scope: 'model.errors.task.name')
-    validates_presence :role, message: I18n.t(:blank, scope: 'model.errors.task.name')
+    validates_presence :gid, message: I18n.t(:blank, scope: 'model.errors.user.gid')
+    validates_presence :role, message: I18n.t(:blank, scope: 'model.errors.user.role')
     validates_includes ALLOWED_ROLES,
                        :role,
                        message: I18n.t(:bad_role,
                                        scope: 'model.errors.user.role',
                                        roles: ALLOWED_ROLES)
+    validates_presence :balance, message: I18n.t(:blank, scope: 'model.errors.user.balance')
   end
 end

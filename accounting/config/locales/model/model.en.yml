@@ -2,11 +2,13 @@ en:
   model:
     errors:
       user:
-        name:
-          gid:
-            blank: 'Gid cannot be blank'
+        gid:
+          blank: 'Gid cannot be blank'
         role:
+          blank: 'Role cannot be blank'
           bad_role: 'Role can only by developer, manager or admin'
+        balance:
+          blank: 'Balance cannot be blank'
       task:
         title:
           blank: 'Title can not be blank'

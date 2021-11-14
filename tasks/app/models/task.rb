@@ -15,10 +15,19 @@ class Task < Sequel::Model
   INITIAL_STATUS = 'in_progress'
   DONE_STATUS = 'done'
 
+  JIRA_ID_REGEX = /[^\[\]]/.freeze
+
   def validate
     super
 
-    validates_presence :title, message: I18n.t(:blank, scope: 'model.errors.task.name')
+    validates_presence :title, message: I18n.t(:blank, scope: 'model.errors.task.title')
+    errors.add(:title, I18n.t(:format, scope: 'model.errors.task.title')) if title_contains_brackets?
     validates_presence :description, message: I18n.t(:blank, scope: 'model.errors.task.password')
+  end
+
+  private
+
+  def title_contains_brackets?
+    (title.split('') & %w[[ ]]).present?
   end
 end

@@ -11,6 +11,8 @@ en:
         title:
           blank: 'Title can not be blank'
           format: 'can not have ] or [ characters'
+        jira_id:
+          blank: 'jira_id can not be blank'
       user_session:
         gid:
           blank: 'Gid cannot be blank'

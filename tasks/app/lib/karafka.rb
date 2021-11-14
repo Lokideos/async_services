@@ -44,6 +44,3 @@ module KafkaApp
     end
   end
 end
-
-
-

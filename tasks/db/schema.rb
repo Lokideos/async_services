@@ -23,6 +23,7 @@ Sequel.migration do
       foreign_key :user_id, :users, :type=>"bigint", :null=>false, :key=>[:id]
       column :created_at, "timestamp(6) without time zone", :null=>false
       column :updated_at, "timestamp(6) without time zone", :null=>false
+      column :jira_id, "character varying"
     end
     
     create_table(:user_sessions) do

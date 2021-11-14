@@ -44,7 +44,7 @@ RSpec.describe Application, type: :routes do
 
     context 'valid parameters' do
       let!(:user) { Fabricate(:user) }
-      let(:params) { { title: 'title', description: 'description', user_gid: user.gid } }
+      let(:params) { { title: 'title', jira_id: 'jira_id', description: 'description', user_gid: user.gid } }
 
       it 'returns created status' do
         post endpoint, params, headers
@@ -55,7 +55,7 @@ RSpec.describe Application, type: :routes do
 
     context 'invalid parameters' do
       let!(:user) { Fabricate(:user) }
-      let(:params) { { title: nil, description: 'description', user_gid: user.gid } }
+      let(:params) { { title: nil, jira_id: 'jira_id', description: 'description', user_gid: user.gid } }
 
       it 'returns an error' do
         post endpoint, params, headers
@@ -68,7 +68,7 @@ RSpec.describe Application, type: :routes do
     context 'with bad session token' do
       let(:headers) { { 'HTTP_AUTHORIZATION' => 'Bearer bad_token' } }
       let!(:user) { Fabricate(:user) }
-      let(:params) { { title: 'title', description: 'description', user_gid: user.gid } }
+      let(:params) { { title: 'title', jira_id: 'jira_id', description: 'description', user_gid: user.gid } }
 
       it 'returns an error' do
         post endpoint, params, headers

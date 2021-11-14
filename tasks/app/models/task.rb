@@ -8,12 +8,14 @@ class Task < Sequel::Model
 
   dataset_module do
     def non_closed_tasks
-      where(status: INITIAL_STATUS).all
+      where(new_status: INITIAL_STATUS).all
     end
   end
 
   INITIAL_STATUS = 'in_progress'
+  NEW_INITIAL_STATUS = 'bird_in_cage'
   DONE_STATUS = 'done'
+  NEW_DONE_STATUS = 'millet_in_bowl'
 
   def validate
     super

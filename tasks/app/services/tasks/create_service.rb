@@ -25,6 +25,7 @@ module Tasks
         jira_id: @jira_id,
         description: @description,
         status: ::Task::INITIAL_STATUS,
+        new_status: ::Task::NEW_INITIAL_STATUS,
       )
 
       if @task.valid?

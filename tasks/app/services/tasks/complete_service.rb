@@ -19,7 +19,7 @@ module Tasks
 
       return fail!(I18n.t(:unauthorized, scope: 'errors')) if session.user.id != @task.user.id
 
-      @task.update(status: Task::DONE_STATUS)
+      @task.update(status: Task::DONE_STATUS, new_status: Task::NEW_DONE_STATUS)
       EventProducer.send_event(
         topic: Settings.kafka.topics.tasks,
         event_name: 'TaskCompleted',

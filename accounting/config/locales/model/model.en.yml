@@ -1,0 +1,12 @@
+en:
+  model:
+    errors:
+      user:
+        name:
+          gid:
+            blank: 'Gid cannot be blank'
+        role:
+          bad_role: 'Role can only by developer, manager or admin'
+      user_session:
+        gid:
+          blank: 'Gid cannot be blank'

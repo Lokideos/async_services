@@ -58,7 +58,7 @@ module KafkaApp
 
   class App < Karafka::App
     setup do |config|
-      config.client_id = 'async-tasks'
+      config.client_id = 'async-accounting'
     end
 
     consumer_groups.draw do

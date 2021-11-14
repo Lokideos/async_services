@@ -15,10 +15,12 @@ RSpec.describe Users::DestroyService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.authentication,
         event_name: 'AccountDeleted',
+        event_version: 1,
         event_type: 'CUD',
         payload: {
           gid: user.gid,
-        }
+        },
+        type: 'auth.AccountDeleted',
       )
 
       service.call(user.id, session.gid)
@@ -30,7 +32,7 @@ RSpec.describe Users::DestroyService do
       let!(:user) { Fabricate(:user) }
 
       it 'does not destroy the user' do
-        expect { service.call(user.id, nil) }.to_not change(User, :count)
+        expect { service.call(user.id, nil) }.not_to change(User, :count)
       end
 
       it 'adds an error' do
@@ -46,7 +48,7 @@ RSpec.describe Users::DestroyService do
       let!(:session) { Fabricate(:user_session) }
 
       it 'does not destroy the user' do
-        expect { service.call(user.id, session.gid) }.to_not change(User, :count)
+        expect { service.call(user.id, session.gid) }.not_to change(User, :count)
       end
 
       it 'adds an error' do

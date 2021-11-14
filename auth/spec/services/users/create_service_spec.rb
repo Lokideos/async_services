@@ -22,11 +22,13 @@ RSpec.describe Users::CreateService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.authentication,
         event_name: 'AccountCreated',
+        event_version: 1,
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
-          role: 'developer'
-        }
+          role: 'developer',
+        },
+        type: 'auth.AccountCreated',
       )
 
       service.call('bob', 'bob@example.com', 'developer', 'givemeatoken')

@@ -9,9 +9,12 @@ module KafkaApp
           p message
           puts '-' * 80
 
-          case message['event_name']
+          message_payload = JSON(message.raw_payload)
+          message_payload_data = message_payload['data']
+
+          case message_payload['event_name']
           when 'UserLoggedOut'
-            UserSessions::DestroyService.call(message.payload['gid'])
+            UserSessions::DestroyService.call(message_payload_data['gid'])
           else
             p 'Unknown event'
           end

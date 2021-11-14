@@ -16,18 +16,30 @@ module Users
 
       if @user.valid?
         @user.save
-        EventProducer.send_event(
-          topic: Settings.kafka.topics.authentication,
-          event_name: 'AccountCreated',
-          event_type: 'CUD',
-          payload: {
-            gid: @user.gid,
-            role: @user.role,
-          }
-        )
+        produce_event
       else
         fail!(@user.errors)
       end
+    end
+
+    private
+
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'AccountCreated',
+        event_version: event_version,
+        event_type: 'CUD',
+        payload: {
+          gid: @user.gid,
+          role: @user.role,
+        },
+        type: 'auth.AccountCreated',
+      )
+    end
+
+    def event_version
+      1
     end
   end
 end

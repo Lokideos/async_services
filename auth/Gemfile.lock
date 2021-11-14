@@ -1,3 +1,9 @@
+PATH
+  remote: ../schema_registry
+  specs:
+    schema_registry (1)
+      json-schema
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -7,6 +13,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     bcrypt (3.1.16)
     byebug (11.1.3)
@@ -73,6 +81,8 @@ GEM
     io-console (0.5.9)
     irb (1.3.7)
       reline (>= 0.2.7)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (2.3.0)
@@ -98,6 +108,7 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    public_suffix (4.0.6)
     puma (5.5.2)
       nio4r (~> 2.0)
     rack (2.2.3)
@@ -200,6 +211,7 @@ DEPENDENCIES
   rspec (~> 3.10)
   rubocop-airbnb (~> 4.0)
   ruby_jard (~> 0.3)
+  schema_registry!
   sequel (~> 5.50)
   sequel_secure_password (~> 0.2)
   waterdrop (~> 1.4)

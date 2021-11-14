@@ -14,10 +14,12 @@ RSpec.describe UserSessions::DestroyService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.authentication,
         event_name: 'UserLoggedOut',
+        event_version: 1,
         event_type: 'CUD',
         payload: {
           gid: session.gid,
-        }
+        },
+        type: 'auth.UserLoggedOut',
       )
 
       service.call(session.gid)

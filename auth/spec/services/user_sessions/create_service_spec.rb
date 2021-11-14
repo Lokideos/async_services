@@ -30,11 +30,13 @@ RSpec.describe UserSessions::CreateService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.authentication,
         event_name: 'UserAuthenticated',
+        event_version: 1,
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
-          user_gid: user.gid
-        }
+          user_gid: user.gid,
+        },
+        type: 'auth.UserAuthenticated',
       )
 
       service.call('bob@example.com', 'givemeatoken')

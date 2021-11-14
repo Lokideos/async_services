@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "title": "TaskCreated.v2",
+  "description": "json schema for Task created event",
+
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "gid":     { "type": "string" },
+        "title":   { "type": "string" },
+        "jira_id": { "type": "string" }
+      },
+      "required": [
+        "gid",
+        "title",
+        "jira_id"
+      ]
+    }
+  },
+
+  "type": "object",
+
+  "properties": {
+    "event_id":      { "type": "string" },
+    "event_version": { "enum": [1, 2] },
+    "event_name":    { "type": "string" },
+    "event_time":    { "type": "string" },
+    "event_type":    { "type": "string" },
+    "producer":      { "type": "string" },
+
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+
+  "required": [
+    "event_id",
+    "event_version",
+    "event_name",
+    "event_time",
+    "producer",
+    "data"
+  ]
+}

@@ -31,7 +31,8 @@ RSpec.describe Tasks::CreateService do
           gid: stubbed_uuid,
           title: 'title',
           jira_id: 'jira_id',
-        }
+        },
+        type: 'tasks.TaskCreated'
       )
 
       service.call('title', 'jira_id', 'description', user.gid, session.gid)

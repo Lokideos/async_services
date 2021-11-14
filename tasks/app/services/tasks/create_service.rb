@@ -48,7 +48,8 @@ module Tasks
           gid: @task.gid,
           title: @task.title,
           jira_id: @task.jira_id,
-        }
+        },
+        type: 'tasks.TaskCreated'
       )
     end
 

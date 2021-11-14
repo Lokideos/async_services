@@ -12,17 +12,23 @@ module UserSessions
       end
 
       session.destroy
-      EventProducer.send_event(
-        topic: Settings.kafka.topics.authentication,
-        event_name: 'UserLoggedOut',
-        event_type: 'CUD',
-        payload: {
-          gid: @session.gid,
-        }
-      )
+      produce_event
     end
 
     private
+
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'UserLoggedOut',
+        event_version: event_version,
+        event_type: 'CUD',
+        payload: {
+          gid: @session.gid,
+        },
+        type: 'auth.UserLoggedOut'
+      )
+    end
 
     def session
       @session ||= UserSession.find(gid: @gid)
@@ -30,6 +36,10 @@ module UserSessions
 
     def fail_t!(key)
       fail!(I18n.t(key, scope: 'service.user_sessions.destroy_service'))
+    end
+
+    def event_version
+      1
     end
   end
 end

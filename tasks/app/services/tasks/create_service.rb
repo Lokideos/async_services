@@ -48,13 +48,14 @@ module Tasks
           gid: @task.gid,
           title: @task.title,
           jira_id: @task.jira_id,
+          user_gid: @user.gid,
         },
-        type: 'tasks.TaskCreated'
+        type: 'tasks.TaskCreated',
       )
     end
 
     def event_version
-      2
+      3
     end
 
     def session

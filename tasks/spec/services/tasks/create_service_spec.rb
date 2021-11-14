@@ -25,12 +25,13 @@ RSpec.describe Tasks::CreateService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.tasks,
         event_name: 'TaskCreated',
-        event_version: 2,
+        event_version: 3,
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
           title: 'title',
           jira_id: 'jira_id',
+          user_gid: user.gid
         },
         type: 'tasks.TaskCreated'
       )

@@ -8,7 +8,7 @@ class Task < Sequel::Model
 
   dataset_module do
     def non_closed_tasks
-      where(new_status: INITIAL_STATUS).all
+      where(new_status: NEW_INITIAL_STATUS).all
     end
   end
 

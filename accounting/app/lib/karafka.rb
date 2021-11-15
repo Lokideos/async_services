@@ -53,6 +53,10 @@ module KafkaApp
               message_payload_data['gid'],
               message_payload_data['user_gid']
             )
+          when 'TaskCompleted'
+            Tasks::CompleteService.call(
+              message_payload_data['gid']
+            )
           else
             p 'Unknown event'
           end

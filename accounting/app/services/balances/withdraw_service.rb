@@ -13,7 +13,7 @@ module Balances
 
       Sequel.connect(Settings.db.to_hash) do |db|
         db.transaction do
-          @user.update(balance: @user.balance - 10)
+          @user.update(balance: @user.balance - @task_cost)
         end
       end
       produce_event

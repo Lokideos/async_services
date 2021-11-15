@@ -18,5 +18,18 @@ class BalancesRoute < AbstractRoute
         error_response(result.errors)
       end
     end
+
+    r.get 'total' do
+      result = Balances::FetchTotalService.call(extracted_token['gid'])
+      response['Content-Type'] = 'application/json'
+
+      if result.success?
+        response.status = 200
+        { total: result.total_balance }.to_json
+      else
+        response.status = 422
+        error_response(result.errors)
+      end
+    end
   end
 end

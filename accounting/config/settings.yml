@@ -10,3 +10,4 @@ kafka:
     authentication: 'auth-stream'
     tasks: 'tasks-stream'
     accounting: 'accounting-stream'
+    billing: 'billing-lifecycle'

@@ -7,6 +7,7 @@ module Balances
     param :session_gid
 
     attr_reader :user_balance
+    attr_reader :user_transactions
 
     def call
       if @session_gid.blank? || session.blank?
@@ -17,6 +18,7 @@ module Balances
       return fail!(I18n.t(:user_not_found, scope: 'errors')) if @user.blank?
 
       @user_balance = User.user_balance(@user.id)
+      @user_transactions = Transaction.user_daily_transactions(@user.id)
     end
 
     private

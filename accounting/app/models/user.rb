@@ -5,6 +5,7 @@ class User < Sequel::Model
 
   one_to_many :sessions, class: 'UserSession'
   one_to_many :tasks
+  one_to_many :transactions
 
   add_association_dependencies sessions: :delete
 

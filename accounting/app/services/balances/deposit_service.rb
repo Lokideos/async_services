@@ -11,8 +11,11 @@ module Balances
       @user = User.first(id: @user_id)
       return fail!(I18n.t(:user_not_found, scope: 'errors')) if @user.blank?
 
+      @transaction = Transaction.new(type: Transaction::DEPOSIT, amount: @task_compensation)
+
       Sequel.connect(Settings.db.to_hash) do |db|
         db.transaction do
+          @user.add_transaction(@transaction)
           @user.update(balance: @user.balance + @task_compensation)
         end
       end

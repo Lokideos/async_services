@@ -25,3 +25,8 @@ en:
       user_session:
         gid:
           blank: 'Gid cannot be blank'
+      transaction:
+        type:
+          blank: 'Type cannot be blank'
+        amount:
+          blank: 'Amount cannot be blank'

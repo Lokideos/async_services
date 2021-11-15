@@ -12,6 +12,10 @@ class User < Sequel::Model
     def developer_ids
       where(role: 'developer').map(&:id)
     end
+
+    def negative_balances
+      where(role: 'developer').where{balance < 0}.all
+    end
   end
 
   ALLOWED_ROLES = %w(developer manager admin).freeze

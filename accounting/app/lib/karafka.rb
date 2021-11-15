@@ -48,6 +48,11 @@ module KafkaApp
               message_payload_data['jira_id'],
               message_payload_data['user_gid']
             )
+          when 'TaskAssigned'
+            Tasks::AssignService.call(
+              message_payload_data['gid'],
+              message_payload_data['user_gid']
+            )
           else
             p 'Unknown event'
           end

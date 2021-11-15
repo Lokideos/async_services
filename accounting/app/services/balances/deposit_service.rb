@@ -32,7 +32,7 @@ module Balances
         event_type: 'BE',
         payload: {
           user_gid: @user.gid,
-          amount: @task_cost,
+          balance_amount: @user.balance,
         },
         type: 'accounting.Deposit'
       )

@@ -24,7 +24,7 @@ module Tasks
 
       if @task.valid?
         @user.add_task(@task)
-        # withdraw task cost from user balance
+        Balances::WithdrawService.call(@user.id, @task.cost)
       else
         fail!(@task.errors)
       end

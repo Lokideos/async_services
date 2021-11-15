@@ -9,3 +9,4 @@ kafka:
   topics:
     authentication: 'auth-stream'
     tasks: 'tasks-stream'
+    accounting: 'accounting-stream'

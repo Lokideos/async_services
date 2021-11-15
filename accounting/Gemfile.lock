@@ -17,6 +17,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     byebug (11.1.3)
+    chronic (0.10.2)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
     config (3.1.0)
@@ -188,6 +189,8 @@ GEM
       dry-validation (~> 1.7)
       ruby-kafka (>= 1.3.0)
       zeitwerk (~> 2.4)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     zeitwerk (2.5.1)
 
 PLATFORMS
@@ -217,6 +220,7 @@ DEPENDENCIES
   sequel (~> 5.50)
   sidekiq (~> 6.3)
   waterdrop (~> 1.4)
+  whenever
 
 RUBY VERSION
    ruby 3.0.1p64

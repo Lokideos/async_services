@@ -28,6 +28,7 @@ gem 'sequel', '~> 5.50'
 gem 'jwt', '~> 2.3'
 
 gem "sidekiq", '~> 6.3'
+gem 'whenever', require: false
 
 gem 'jsonapi-serializer', '~> 2.2'
 

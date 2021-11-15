@@ -53,6 +53,32 @@ module KafkaApp
         end
       end
 
+      class TasksConsumer < Base
+        def consume
+          params_batch.each do |message|
+            puts '-' * 80
+            p message
+            puts '-' * 80
+
+            message_payload = JSON(message.raw_payload)
+            message_payload_data = message_payload['data']
+
+            case message_payload['event_name']
+            when 'TaskCreated'
+              Tasks::CreateService.call(
+                message_payload_data['gid'],
+                message_payload_data['title']
+              )
+            when 'TaskCompleted'
+              Tasks::CompleteService.call(
+                message_payload_data['gid']
+              )
+            else
+              p 'Unknown event'
+            end
+          end
+        end
+      end
     end
   end
 
@@ -65,7 +91,7 @@ module KafkaApp
       consumer_group :events do
         topic(:'auth-stream') { consumer KafkaApp::Consumers::AuthConsumer }
         topic(:'accounting-stream') { consumer KafkaApp::Consumers::AccountingConsumer }
-        # topic(:'tasks-stream') { consumer KafkaApp::Consumers::AuthConsumer }
+        topic(:'tasks-stream') { consumer KafkaApp::Consumers::TasksConsumer }
       end
     end
   end

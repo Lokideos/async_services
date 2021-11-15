@@ -12,3 +12,5 @@ en:
     tasks:
       assign_service:
         task_not_found: 'Task not found'
+      complete_service:
+        task_not_found: 'Task not found'

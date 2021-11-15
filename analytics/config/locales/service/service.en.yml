@@ -9,3 +9,6 @@ en:
     roles:
       change_service:
         user_not_found: 'User not found'
+    tasks:
+      complete_service:
+        task_not_found: 'Task not found'

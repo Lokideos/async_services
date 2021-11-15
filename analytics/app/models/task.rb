@@ -14,6 +14,5 @@ class Task < Sequel::Model
     validates_presence :title, message: I18n.t(:blank, scope: 'model.errors.task.title')
     validates_presence :gid, message: I18n.t(:blank, scope: 'model.errors.task.gid')
     validates_presence :status, message: I18n.t(:blank, scope: 'model.errors.task.status')
-    validates_presence :cost, message: I18n.t(:blank, scope: 'model.errors.task.cost')
   end
 end

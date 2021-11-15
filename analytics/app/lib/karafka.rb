@@ -47,6 +47,12 @@ module KafkaApp
             Balances::ChangeService.call(message_payload_data['user_gid'], message_payload_data['balance_amount'])
           when 'Nullify'
             Balances::ChangeService.call(message_payload_data['user_gid'], 0)
+          when 'CostAssigned'
+            Tasks::CreateService.call(
+              message_payload_data['task_gid'],
+              message_payload_data['task_title'],
+              message_payload_data['task_compensation']
+            )
           else
             p 'Unknown event'
           end
@@ -64,11 +70,6 @@ module KafkaApp
             message_payload_data = message_payload['data']
 
             case message_payload['event_name']
-            when 'TaskCreated'
-              Tasks::CreateService.call(
-                message_payload_data['gid'],
-                message_payload_data['title']
-              )
             when 'TaskCompleted'
               Tasks::CompleteService.call(
                 message_payload_data['gid']

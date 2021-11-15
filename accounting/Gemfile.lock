@@ -215,7 +215,7 @@ DEPENDENCIES
   ruby_jard (~> 0.3)
   schema_registry!
   sequel (~> 5.50)
-  sidekiq (~> 6.2)
+  sidekiq (~> 6.3)
   waterdrop (~> 1.4)
 
 RUBY VERSION

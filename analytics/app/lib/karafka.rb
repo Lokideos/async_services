@@ -58,25 +58,25 @@ module KafkaApp
           end
         end
       end
+    end
 
-      class TasksConsumer < Base
-        def consume
-          params_batch.each do |message|
-            puts '-' * 80
-            p message
-            puts '-' * 80
+    class TasksConsumer < Base
+      def consume
+        params_batch.each do |message|
+          puts '-' * 80
+          p message
+          puts '-' * 80
 
-            message_payload = JSON(message.raw_payload)
-            message_payload_data = message_payload['data']
+          message_payload = JSON(message.raw_payload)
+          message_payload_data = message_payload['data']
 
-            case message_payload['event_name']
-            when 'TaskCompleted'
-              Tasks::CompleteService.call(
-                message_payload_data['gid']
-              )
-            else
-              p 'Unknown event'
-            end
+          case message_payload['event_name']
+          when 'TaskCompleted'
+            Tasks::CompleteService.call(
+              message_payload_data['gid']
+            )
+          else
+            p 'Unknown event'
           end
         end
       end

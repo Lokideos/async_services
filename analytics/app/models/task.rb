@@ -8,6 +8,12 @@ class Task < Sequel::Model
   INITIAL_STATUS = 'bird_in_cage'
   DONE_STATUS = 'millet_in_bowl'
 
+  dataset_module do
+    def most_expensive_at_date(date)
+      where(status: DONE_STATUS, updated_at: date).max_by(&:cost)
+    end
+  end
+
   def validate
     super
 

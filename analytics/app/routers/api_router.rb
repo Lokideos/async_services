@@ -9,6 +9,7 @@ class ApiRouter < AbstractApiRouter
   include Auth
 
   run 'v1/balances', BalancesRoute
+  run 'v1/tasks', TasksRoute
 
   route do |r|
     r.multi_run

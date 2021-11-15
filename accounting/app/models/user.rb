@@ -21,6 +21,10 @@ class User < Sequel::Model
     def user_balance(id)
       select(:id, :balance)&.first(id: id)
     end
+
+    def balances_total
+      select(:balance)&.where(role: 'developer').sum(:balance)
+    end
   end
 
   ALLOWED_ROLES = %w(developer manager admin).freeze

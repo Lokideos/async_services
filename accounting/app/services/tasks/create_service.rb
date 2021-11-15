@@ -32,6 +32,26 @@ module Tasks
 
     private
 
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.accounting,
+        event_name: 'CostAssigned',
+        event_version: event_version,
+        event_type: 'CUD',
+        payload: {
+          task_gid: @task.gid,
+          task_title: @task.title,
+          task_cost: @task.cost,
+          task_compensation: @task.compensation,
+        },
+        type: 'accounting.CostAssigned'
+      )
+    end
+
+    def event_version
+      1
+    end
+
     def initial_cost
       rand(10..20).to_d
     end

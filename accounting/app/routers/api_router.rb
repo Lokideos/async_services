@@ -8,7 +8,7 @@ class ApiRouter < AbstractApiRouter
   include ApiErrors
   include Auth
 
-  # run 'v1/tasks', TasksRoute
+  run 'v1/balances', BalancesRoute
 
   route do |r|
     r.multi_run

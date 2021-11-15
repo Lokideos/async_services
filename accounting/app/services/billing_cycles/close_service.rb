@@ -10,7 +10,7 @@ module BillingCycles
         user_balance = user.balance
         p "Background job sent email to user #{user_gid}"
         Payments::CreateService.call(user.id, user_balance)
-        Balances::NullifyService(user.id)
+        Balances::NullifyService.call(user.id)
       end
       produce_event
     end

@@ -1,0 +1,4 @@
+---
+:concurency: 1
+:queues:
+  - billing_cycles

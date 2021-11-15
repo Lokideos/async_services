@@ -2,3 +2,6 @@ db:
   user: postgres
   password: notsecure
   database: async_accounting_test
+redis:
+  db: 3
+  sidekiq_db: 4

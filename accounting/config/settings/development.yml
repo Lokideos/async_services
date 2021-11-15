@@ -2,3 +2,6 @@ db:
   user: postgres
   password: notsecure
   database: async_accounting_development
+redis:
+  db: 1
+  sidekiq_db: 2

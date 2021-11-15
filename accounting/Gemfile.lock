@@ -22,6 +22,7 @@ GEM
     config (3.1.0)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
+    connection_pool (2.2.5)
     database_cleaner-core (2.0.1)
     database_cleaner-sequel (2.0.0)
       database_cleaner-core (~> 2.0.0)
@@ -117,6 +118,7 @@ GEM
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rake (13.0.6)
+    redis (4.5.1)
     regexp_parser (2.1.1)
     reline (0.2.7)
       io-console (~> 0.5)
@@ -170,6 +172,10 @@ GEM
       pry (~> 0.13.0)
       tty-screen (~> 0.8.1)
     sequel (5.50.0)
+    sidekiq (6.3.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     thor (1.1.0)
     tty-screen (0.8.1)
     tzinfo (2.0.4)
@@ -209,6 +215,7 @@ DEPENDENCIES
   ruby_jard (~> 0.3)
   schema_registry!
   sequel (~> 5.50)
+  sidekiq (~> 6.2)
   waterdrop (~> 1.4)
 
 RUBY VERSION

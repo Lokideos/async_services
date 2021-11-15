@@ -16,6 +16,10 @@ class User < Sequel::Model
     def developer_balances
       select(:id, :balance)&.where(role: 'developer').reverse_order(:updated_at).all
     end
+
+    def user_balance(id)
+      select(:id, :balance)&.first(id: id)
+    end
   end
 
   ALLOWED_ROLES = %w(developer manager admin).freeze

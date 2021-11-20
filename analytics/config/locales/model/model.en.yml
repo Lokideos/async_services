@@ -7,6 +7,15 @@ en:
             blank: 'Gid cannot be blank'
         role:
           bad_role: 'Role can only by developer, manager or admin'
+      task:
+        title:
+          blank: 'Title can not be blank'
+        gid:
+          blank: 'gid can not be blank'
+        status:
+          blank: 'status can not be blank'
+        cost:
+          blank: 'cost can not be blank'
       user_session:
         gid:
           blank: 'Gid cannot be blank'

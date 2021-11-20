@@ -6,10 +6,21 @@ Sequel.migration do
       primary_key [:filename]
     end
     
+    create_table(:tasks) do
+      primary_key :id, :type=>:Bignum
+      column :gid, "uuid", :null=>false
+      column :title, "character varying", :null=>false
+      column :status, "task_status_types_enum", :null=>false
+      column :cost, "numeric", :null=>false
+      column :created_at, "timestamp(6) without time zone", :null=>false
+      column :updated_at, "timestamp(6) without time zone", :null=>false
+    end
+    
     create_table(:users) do
       primary_key :id, :type=>:Bignum
       column :gid, "uuid", :null=>false
       column :role, "roles_enum", :null=>false
+      column :balance, "numeric", :null=>false
       column :created_at, "timestamp(6) without time zone", :null=>false
       column :updated_at, "timestamp(6) without time zone", :null=>false
     end

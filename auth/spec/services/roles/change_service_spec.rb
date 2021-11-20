@@ -25,8 +25,10 @@ RSpec.describe Roles::ChangeService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.authentication,
         event_name: 'RoleChanged',
+        event_version: 1,
         event_type: 'BE',
-        payload: { gid: user.gid, role: new_role }
+        payload: { gid: user.gid, role: new_role },
+        type: 'auth.RoleChanged'
       )
 
       service.call(user.gid, new_role, session.gid)

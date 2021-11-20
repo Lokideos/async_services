@@ -8,12 +8,12 @@ RSpec.describe Tasks::CreateService do
     let!(:session) { Fabricate(:user_session) }
 
     it 'creates a new task' do
-      expect { service.call('title', 'description', user.gid, session.gid) }.
+      expect { service.call('title', 'jira_id', 'description', user.gid, session.gid) }.
         to change(Task, :count).from(0).to(1)
     end
 
     it 'assigns task' do
-      result = service.call('title', 'description', user.gid, session.gid)
+      result = service.call('title', 'jira_id', 'description', user.gid, session.gid)
 
       expect(result.task).to be_kind_of(Task)
     end
@@ -25,13 +25,18 @@ RSpec.describe Tasks::CreateService do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.tasks,
         event_name: 'TaskCreated',
+        event_version: 3,
         event_type: 'CUD',
         payload: {
           gid: stubbed_uuid,
-        }
+          title: 'title',
+          jira_id: 'jira_id',
+          user_gid: user.gid
+        },
+        type: 'tasks.TaskCreated'
       )
 
-      service.call('title', 'description', user.gid, session.gid)
+      service.call('title', 'jira_id', 'description', user.gid, session.gid)
     end
   end
 
@@ -40,12 +45,12 @@ RSpec.describe Tasks::CreateService do
     let!(:session) { Fabricate(:user_session) }
 
     it 'does not create a task' do
-      expect { service.call(nil, 'description', user.gid, session.gid) }.
+      expect { service.call(nil, 'jira_id', 'description', user.gid, session.gid) }.
         not_to change(Task, :count)
     end
 
     it 'assigns task' do
-      result = service.call(nil, 'description', user.gid, session.gid)
+      result = service.call(nil, 'jira_id', 'description', user.gid, session.gid)
 
       expect(result.task).to be_kind_of(Task)
     end
@@ -55,12 +60,12 @@ RSpec.describe Tasks::CreateService do
     let!(:user) { Fabricate(:user) }
 
     it 'does not create a task' do
-      expect { service.call('title', 'description', user.gid, nil) }.
+      expect { service.call('title', 'jira_id', 'description', user.gid, nil) }.
         not_to change(Task, :count)
     end
 
     it 'returns an error' do
-      result = service.call('title', 'description', user.gid, nil)
+      result = service.call('title', 'jira_id', 'description', user.gid, nil)
 
       expect(result).to be_failure
       expect(result.errors).to include('User is not authenticated')
@@ -71,12 +76,12 @@ RSpec.describe Tasks::CreateService do
     let!(:session) { Fabricate(:user_session) }
 
     it 'does not create a task' do
-      expect { service.call('title', 'description', nil, session.gid) }.
+      expect { service.call('title', 'jira_id', 'description', nil, session.gid) }.
         not_to change(Task, :count)
     end
 
     it 'returns an error' do
-      result = service.call('title', 'description', nil, session.gid)
+      result = service.call('title', 'jira_id', 'description', nil, session.gid)
 
       expect(result).to be_failure
       expect(result.errors).to include('User for this session is not found')

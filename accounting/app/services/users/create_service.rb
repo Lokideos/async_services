@@ -10,7 +10,7 @@ module Users
     attr_reader :user
 
     def call
-      @user = ::User.new(gid: @gid, role: @role)
+      @user = ::User.new(gid: @gid, role: @role, balance: Balance::INITIAL_VALUE)
 
       @user.valid? ? @user.save : fail!(@user.errors)
     end

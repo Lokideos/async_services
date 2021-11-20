@@ -18,20 +18,30 @@ module Users
       return fail!(I18n.t(:not_found, scope: 'service.users.destroy_service')) if @user.blank?
 
       @user.destroy
-      EventProducer.send_event(
-        topic: Settings.kafka.topics.authentication,
-        event_name: 'AccountDeleted',
-        event_type: 'CUD',
-        payload: {
-          gid: @user.gid,
-        }
-      )
+      produce_event
     end
 
     private
 
     def session
       @session ||= UserSession.find(gid: @session_gid)
+    end
+
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'AccountDeleted',
+        event_version: event_version,
+        event_type: 'CUD',
+        payload: {
+          gid: @user.gid,
+        },
+        type: 'auth.AccountDeleted',
+      )
+    end
+
+    def event_version
+      1
     end
   end
 end

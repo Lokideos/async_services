@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "title": "PaymentProcessed.v1",
+  "description": "json schema for Payment processed event",
+
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "user_gid": { "type": "string" },
+        "amount":   { "type": "number" }
+      },
+      "required": [
+        "user_gid",
+        "amount"
+      ]
+    }
+  },
+
+  "type": "object",
+
+  "properties": {
+    "event_id":      { "type": "string" },
+    "event_version": { "enum": [1] },
+    "event_name":    { "type": "string" },
+    "event_time":    { "type": "string" },
+    "event_type":    { "type": "string" },
+    "producer":      { "type": "string" },
+
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+
+  "required": [
+    "event_id",
+    "event_version",
+    "event_name",
+    "event_time",
+    "producer",
+    "data"
+  ]
+}

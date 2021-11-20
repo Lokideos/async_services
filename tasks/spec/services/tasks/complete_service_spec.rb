@@ -23,10 +23,12 @@ RSpec.describe Tasks::CompleteService, type: :service do
       expect(EventProducer).to receive(:send_event).with(
         topic: Settings.kafka.topics.tasks,
         event_name: 'TaskCompleted',
+        event_version: 1,
         event_type: 'BE',
         payload: {
           gid: task.gid,
-        }
+        },
+        type: 'tasks.TaskCompleted'
       )
 
       service.call(task.id, session.gid)

@@ -1,3 +1,4 @@
 web-backend: bin/puma -p 3000
 web-frontend: yarn --cwd ./spa/ start
 karafka: bundle exec karafka server
+sidekiq: sidekiq -r ./config/environment.rb -C ./config/sidekiq/default.yml -c 1

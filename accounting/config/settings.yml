@@ -5,7 +5,12 @@ db:
   adapter: postgresql
   host: localhost
   port: 5432
+redis:
+  host: localhost
+  port: 6379
 kafka:
   topics:
     authentication: 'auth-stream'
     tasks: 'tasks-stream'
+    accounting: 'accounting-stream'
+    billing: 'billing-lifecycle'

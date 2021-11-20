@@ -6,13 +6,13 @@
 
 time = Time.now
 user_data = [
-  [SecureRandom.uuid, 'admin', time, time],
-  [SecureRandom.uuid, 'manager', time, time],
-  [SecureRandom.uuid, 'developer', time, time],
-  [SecureRandom.uuid, 'developer', time, time],
+  [SecureRandom.uuid, 'admin', 0, time, time],
+  [SecureRandom.uuid, 'manager', 0, time, time],
+  [SecureRandom.uuid, 'developer', 0, time, time],
+  [SecureRandom.uuid, 'developer', 0, time, time],
 ]
 
-User.import(%i(gid role created_at updated_at), user_data)
+User.import(%i(gid role balance created_at updated_at), user_data)
 
 # Create sessions
 

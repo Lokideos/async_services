@@ -5,12 +5,25 @@ class User < Sequel::Model
 
   one_to_many :sessions, class: 'UserSession'
   one_to_many :tasks
+  one_to_many :transactions
 
   add_association_dependencies sessions: :delete
 
   dataset_module do
     def developer_ids
       where(role: 'developer').map(&:id)
+    end
+
+    def developer_balances
+      select(:id, :balance)&.where(role: 'developer').reverse_order(:updated_at).all
+    end
+
+    def user_balance(id)
+      select(:id, :balance)&.first(id: id)
+    end
+
+    def balances_total
+      select(:balance)&.where(role: 'developer').sum(:balance)
     end
   end
 
@@ -19,12 +32,13 @@ class User < Sequel::Model
   def validate
     super
 
-    validates_presence :gid, message: I18n.t(:blank, scope: 'model.errors.task.name')
-    validates_presence :role, message: I18n.t(:blank, scope: 'model.errors.task.name')
+    validates_presence :gid, message: I18n.t(:blank, scope: 'model.errors.user.gid')
+    validates_presence :role, message: I18n.t(:blank, scope: 'model.errors.user.role')
     validates_includes ALLOWED_ROLES,
                        :role,
                        message: I18n.t(:bad_role,
                                        scope: 'model.errors.user.role',
                                        roles: ALLOWED_ROLES)
+    validates_presence :balance, message: I18n.t(:blank, scope: 'model.errors.user.balance')
   end
 end

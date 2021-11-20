@@ -21,22 +21,32 @@ module Tasks
         next if user_developer_ids.size == 1
 
         task.update(user_id: (user_developer_ids - [task.user_id]).sample)
-        EventProducer.send_event(
-          topic: Settings.kafka.topics.tasks,
-          event_name: 'TaskAssigned',
-          event_type: 'BE',
-          payload: {
-            gid: task.gid,
-            user_gid: task.reload.user.gid,
-          }
-        )
+        produce_event
       end
     end
 
     private
 
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.tasks,
+        event_name: 'TaskAssigned',
+        event_version: event_version,
+        event_type: 'BE',
+        payload: {
+          gid: task.gid,
+          user_gid: task.reload.user.gid,
+        },
+        type: 'tasks.TaskAssigned'
+      )
+    end
+
     def session
       @session ||= UserSession.find(gid: @session_gid)
+    end
+
+    def event_version
+      1
     end
   end
 end

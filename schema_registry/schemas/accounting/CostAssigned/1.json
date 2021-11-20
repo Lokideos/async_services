@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "title": "CostAssigned.v1",
+  "description": "json schema for Cost assigned event",
+
+  "definitions": {
+    "event_data": {
+      "type": "object",
+      "properties": {
+        "task_gid":          { "type": "string" },
+        "task_title":        { "type": "string" },
+        "task_cost":         { "type": "number" },
+        "task_compensation": { "type": "number" }
+      },
+      "required": [
+        "task_gid",
+        "task_cost",
+        "task_compensation"
+      ]
+    }
+  },
+
+  "type": "object",
+
+  "properties": {
+    "event_id":      { "type": "string" },
+    "event_version": { "enum": [1] },
+    "event_name":    { "type": "string" },
+    "event_time":    { "type": "string" },
+    "event_type":    { "type": "string" },
+    "producer":      { "type": "string" },
+
+    "data": { "$ref": "#/definitions/event_data" }
+  },
+
+  "required": [
+    "event_id",
+    "event_version",
+    "event_name",
+    "event_time",
+    "producer",
+    "data"
+  ]
+}

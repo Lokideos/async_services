@@ -23,21 +23,31 @@ module Roles
       @user.role = role
       if @user.valid?
         @user.save
-        EventProducer.send_event(
-          topic: Settings.kafka.topics.authentication,
-          event_name: 'RoleChanged',
-          event_type: 'BE',
-          payload: {
-            gid: @user.gid,
-            role: role
-          }
-        )
+        produce_event
       else
         fail!(@user.errors)
       end
     end
 
     private
+
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'RoleChanged',
+        event_version: event_version,
+        event_type: 'BE',
+        payload: {
+          gid: @user.gid,
+          role: role,
+        },
+        type: 'auth.RoleChanged'
+      )
+    end
+
+    def event_version
+      1
+    end
 
     def session
       @session ||= UserSession.find(gid: @session_gid)

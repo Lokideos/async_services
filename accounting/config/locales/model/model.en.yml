@@ -2,11 +2,31 @@ en:
   model:
     errors:
       user:
-        name:
-          gid:
-            blank: 'Gid cannot be blank'
+        gid:
+          blank: 'Gid cannot be blank'
         role:
+          blank: 'Role cannot be blank'
           bad_role: 'Role can only by developer, manager or admin'
+        balance:
+          blank: 'Balance cannot be blank'
+      task:
+        title:
+          blank: 'Title can not be blank'
+        jira_id:
+          blank: 'jira_id can not be blank'
+        gid:
+          blank: 'gid can not be blank'
+        status:
+          blank: 'status can not be blank'
+        cost:
+          blank: 'cost can not be blank'
+        compensation:
+          blank: 'compensation can not be blank'
       user_session:
         gid:
           blank: 'Gid cannot be blank'
+      transaction:
+        type:
+          blank: 'Type cannot be blank'
+        amount:
+          blank: 'Amount cannot be blank'

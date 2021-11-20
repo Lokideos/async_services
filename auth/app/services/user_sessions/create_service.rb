@@ -29,15 +29,7 @@ module UserSessions
 
         if @session.valid?
           @user.add_session(@session)
-          EventProducer.send_event(
-            topic: Settings.kafka.topics.authentication,
-            event_name: 'UserAuthenticated',
-            event_type: 'CUD',
-            payload: {
-              gid: @session.gid,
-              user_gid: @user.gid,
-            }
-          )
+          produce_event
         else
           fail!(@session.errors)
         end
@@ -46,6 +38,24 @@ module UserSessions
 
     def fail_t!(key)
       fail!(I18n.t(key, scope: 'service.user_sessions.create_service'))
+    end
+
+    def produce_event
+      EventProducer.send_event(
+        topic: Settings.kafka.topics.authentication,
+        event_name: 'UserAuthenticated',
+        event_version: event_version,
+        event_type: 'CUD',
+        payload: {
+          gid: @session.gid,
+          user_gid: @user.gid,
+        },
+        type: 'auth.UserAuthenticated',
+      )
+    end
+
+    def event_version
+      1
     end
   end
 end

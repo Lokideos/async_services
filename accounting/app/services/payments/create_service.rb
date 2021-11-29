@@ -11,7 +11,7 @@ module Payments
 
     def call
       @user = ::User.find(id: @user_id)
-      return fail_t!(:user_not_found) if user.blank?
+      return fail_t!(:user_not_found) if @user.blank?
 
       p "#{@amount} money were paid to #{@user.gid} user!"
       produce_event

@@ -14,3 +14,6 @@ en:
         task_not_found: 'Task not found'
       complete_service:
         task_not_found: 'Task not found'
+    payments:
+      create_service:
+        user_not_found: 'User was not provided'

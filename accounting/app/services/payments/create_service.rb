@@ -20,7 +20,7 @@ module Payments
     private
 
     def fail_t!(key)
-      fail!(I18n.t(key, scope: 'errors'))
+      fail!(I18n.t(key, scope: 'service.payments.create_service'))
     end
 
     def produce_event

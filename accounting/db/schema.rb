@@ -18,8 +18,6 @@ Sequel.migration do
     create_table(:tasks) do
       primary_key :id, :type=>:Bignum
       column :gid, "uuid", :null=>false
-      column :title, "character varying", :null=>false
-      column :jira_id, "character varying", :null=>false
       column :status, "task_status_types_enum", :null=>false
       column :cost, "numeric", :null=>false
       column :compensation, "numeric", :null=>false
